@@ -1,0 +1,27 @@
+# dependencies
+node_modules/
+
+# Next.js build output
+.next/
+out/
+
+# local environment and secrets
+.env
+.env.local
+.env.*.local
+
+# logs and editor files
+*.log
+.DS_Store
+Thumbs.db
+.vscode/
+
+# local Codex workspace metadata
+.agents/
+.codex/
+
+# unrelated local webhook prototype (kept in workspace, not published)
+src/
+scripts/
+.env.example
+report.html
