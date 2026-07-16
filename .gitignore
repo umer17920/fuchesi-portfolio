@@ -20,6 +20,10 @@ Thumbs.db
 .agents/
 .codex/
 
+# agent skill symlinks: absolute paths into .agents/, machine-specific.
+# Regenerate from the tracked skills-lock.json with `npx skills install`.
+.claude/skills/
+
 # unrelated local webhook prototype (kept in workspace, not published)
 src/
 scripts/
