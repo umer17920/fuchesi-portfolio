@@ -1,1 +1,0 @@
-module.exports={content:['./app/**/*.{js,jsx}','./components/**/*.{js,jsx}'],darkMode:'class',theme:{extend:{colors:{ink:'#11110f',paper:'#f2f0e9',acid:'#c9ff47'},fontFamily:{sans:['Manrope Variable','sans-serif'],serif:['Newsreader Variable','serif']}}},plugins:[]};

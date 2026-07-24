@@ -1,1 +1,46 @@
-{"name":"fuchesi-portfolio","version":"1.0.0","private":true,"scripts":{"dev":"next dev","build":"next build","start":"next start"},"dependencies":{"@fontsource-variable/manrope":"^5.2.6","@fontsource-variable/newsreader":"^5.2.6","framer-motion":"^11.18.2","lucide-react":"^0.468.0","next":"^14.2.35","react":"^18.3.1","react-dom":"^18.3.1"},"devDependencies":{"autoprefixer":"^10.4.20","postcss":"^8.4.49","tailwindcss":"^3.4.17"},"engines":{"node":">=18.18"}}
+{
+  "name": "fuchesi",
+  "version": "2.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit",
+    "shots": "node scripts/capture-shots.mjs"
+  },
+  "dependencies": {
+    "@gsap/react": "^2.1.2",
+    "@portabletext/react": "^6.2.0",
+    "@sanity/client": "^7.23.1",
+    "@sanity/image-url": "^2.1.1",
+    "@sanity/vision": "^6.5.0",
+    "gsap": "^3.15.0",
+    "next": "^16.2.10",
+    "next-sanity": "^13.1.3",
+    "next-transition-router": "^0.2.11",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "resend": "^6.17.2",
+    "sanity": "^6.5.0",
+    "styled-components": "^6.1.19",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.3",
+    "@types/node": "^24.10.1",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "playwright": "^1.61.1",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^5.9.3"
+  },
+  "engines": {
+    "node": ">=20.9"
+  },
+  "allowScripts": {
+    "sharp@0.34.5": true,
+    "esbuild@0.28.1": true
+  }
+}

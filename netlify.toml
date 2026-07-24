@@ -1,0 +1,20 @@
+# Netlify build configuration.
+#
+# The Next.js Runtime (v5) is auto-installed by Netlify the moment it detects a
+# Next app — it turns the app/api routes into serverless functions, handles ISR,
+# and serves next/image through Netlify's Image CDN. Do NOT add
+# @netlify/plugin-nextjs to package.json by hand; that is the old v4 approach and
+# conflicts with the auto-installed runtime.
+#
+# This file only pins two things:
+#   1. the build command
+#   2. a Node version new enough for Next 16 (needs >= 20.9). Netlify's default
+#      can be older, which fails the build with a confusing error — pinning it
+#      is the fix.
+
+[build]
+  command = "npm run build"
+  # publish + functions are managed by the Next.js Runtime — intentionally unset.
+
+[build.environment]
+  NODE_VERSION = "22"

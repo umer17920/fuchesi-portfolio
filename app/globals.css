@@ -1,4 +1,300 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-:root{color-scheme:light}.dark{color-scheme:dark}html{scroll-behavior:smooth}body{@apply m-0 bg-paper font-sans text-ink antialiased transition-colors duration-300 dark:bg-ink dark:text-paper}::selection{@apply bg-acid text-ink}.grain:before{content:'';position:fixed;inset:0;pointer-events:none;opacity:.035;z-index:50;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E")}.project-grid{grid-template-columns:repeat(auto-fit,minmax(min(100%,330px),1fr))}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+@import 'tailwindcss';
+
+/* ---------------------------------------------------------------------------
+   Design tokens — derived from the FUCHESİ wordmark: black serif on white.
+   Cool monochrome, no colour accent: ink carries every interactive state.
+
+   The first pass warmed this into cream + bronze, which put the site squarely
+   in luxury-clinic territory rather than software. The logo is pure black on
+   white; this palette is that, extended, and nothing more.
+
+   Ratios are measured, not estimated — see scripts/check-contrast.mjs.
+--------------------------------------------------------------------------- */
+@theme {
+  /* Color — LIGHT (the default; dark overrides live in the .dark block below).
+     ------------------------------------------------------------------------
+     Three surfaces, in increasing emphasis:
+       paper     page background
+       raised    alternating band
+       emphasis  the inverted/stand-out section (process, waveform, results)
+
+     `emphasis` is a separate token from `ink` on purpose. They happen to hold
+     the same value in light mode, but conflating them would break dark mode:
+     swapping ink↔paper for dark would flip every emphasis section to a
+     near-white panel on a dark page — a flashbang, and the opposite of the
+     restraint this site is going for. Keeping them separate lets dark mode
+     separate emphasis by *elevation* instead of inversion. */
+  --color-ink: #0b0b0c; /* primary text — 18.85:1 on paper, AAA */
+  --color-ink-soft: #3c3f45; /* 10.12:1 — de-emphasised text, hover fills */
+  --color-paper: #fafafa;
+  --color-paper-raised: #f1f2f3;
+
+  /* Tuned against the raised surface, not paper. The obvious value (#6E7178)
+     passes on paper at 4.68:1 but drops to 4.36:1 on --color-paper-raised and
+     fails AA — and the work grid and FAQ both set muted text on raised. Any
+     future change here must clear 4.5:1 on EVERY surface; run
+     scripts/check-contrast.mjs, which checks both themes. */
+  --color-muted: #666970; /* 5.27:1 on paper, 4.91:1 on raised */
+  --color-hairline: #e4e5e7; /* dividers only, never text */
+
+  --color-emphasis: #0b0b0c; /* emphasis section background */
+  --color-on-emphasis: #fafafa; /* text on it — 18.85:1 */
+
+  /* Obsidian — the WebGL hero ground.
+     These do NOT flip with the theme. The hero's background is a fixed
+     #080808→#0d0d0d gradient in both light and dark mode (obsidian is dark by
+     definition), so anything sitting on it must stay light regardless. Using
+     the theme tokens here would render the hero black-on-black in light mode.
+     Ratios are measured against #0d0d0d, the LIGHTEST end of the gradient —
+     the worst case. */
+  --color-obsidian: #080808;
+  --color-obsidian-end: #0d0d0d;
+  --color-on-obsidian: #f2f2f3; /* 17.37:1 */
+  --color-on-obsidian-muted: #9a9da4; /* 7.16:1 — AAA even at the pale end */
+
+  /* No colour accent. These stay as tokens so components can keep referencing
+     var(--accent) unconditionally: it resolves to ink on light surfaces and
+     on-emphasis on inverted ones. If a colour accent is ever reintroduced, it
+     changes here and nowhere else. */
+  --color-accent: #0b0b0c;
+  --color-accent-on-emphasis: #fafafa;
+
+  /* Type ------------------------------------------------------------------- */
+  --font-display: var(--font-serif), ui-serif, Georgia, serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  /* Source Serif needs real weight at display sizes — it has an even stroke
+     rather than a Didone's thick/thin drama, so 400 reads limp where Bodoni
+     read delicate. 600 is the display voice. */
+  --text-display-xl: clamp(3rem, 8vw, 6.5rem);
+  --text-display-xl--line-height: 0.98;
+  --text-display-xl--letter-spacing: -0.025em;
+  --text-display-xl--font-weight: 600;
+
+  --text-display-l: clamp(2.5rem, 5.5vw, 4.5rem);
+  --text-display-l--line-height: 1.02;
+  --text-display-l--letter-spacing: -0.022em;
+  --text-display-l--font-weight: 600;
+
+  --text-display-m: clamp(2rem, 4vw, 3.25rem);
+  --text-display-m--line-height: 1.08;
+  --text-display-m--letter-spacing: -0.018em;
+  --text-display-m--font-weight: 600;
+
+  --text-display-s: clamp(1.5rem, 2.5vw, 2rem);
+  --text-display-s--line-height: 1.18;
+  --text-display-s--letter-spacing: -0.012em;
+  --text-display-s--font-weight: 600;
+
+  --text-body-l: 1.125rem;
+  --text-body-l--line-height: 1.65;
+  --text-body-m: 1rem;
+  --text-body-m--line-height: 1.7;
+  --text-body-s: 0.875rem;
+  --text-body-s--line-height: 1.6;
+
+  --text-eyebrow: 0.75rem;
+  --text-eyebrow--line-height: 1;
+  --text-eyebrow--letter-spacing: 0.14em;
+  --text-eyebrow--font-weight: 500;
+
+  /* Rhythm ----------------------------------------------------------------- */
+  --spacing-section: 6rem;
+  --spacing-section-lg: 10rem;
+
+  /* Motion ----------------------------------------------------------------- */
+  --ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ---------------------------------------------------------------------------
+   Dark theme
+
+   Class-based, not a media query: the toggle has to be able to override the OS
+   preference. The `dark` class is set on <html> before first paint by an inline
+   script (see ThemeScript.tsx), so there is no flash of the wrong theme.
+
+   Every Tailwind utility compiles to var(--color-*), so re-pointing the tokens
+   here re-themes the entire site — no component knows a theme exists, and there
+   is no second set of `dark:` classes to keep in sync.
+
+   Values are not a naive inversion of light:
+     · ink is #F2F2F3, not #FFF — pure white on near-black halates badly.
+     · emphasis stays DARK (#1c1d22) and separates by elevation. Swapping it to
+       white would turn every process/waveform/results section into a flashbang.
+     · muted is tuned to clear AA on all three dark surfaces, the tightest being
+       emphasis at 5.51:1.
+   Verified by scripts/check-contrast.mjs, which checks both themes.
+--------------------------------------------------------------------------- */
+@custom-variant dark (&:where(.dark, .dark *));
+
+.dark {
+  --color-ink: #f2f2f3; /* 17.47:1 on paper — AAA */
+  --color-ink-soft: #c6c8cd; /* 11.67:1 */
+  --color-paper: #0c0c0e;
+  --color-paper-raised: #141519;
+  --color-muted: #909499; /* 6.40 paper / 5.98 raised / 5.51 emphasis — all AA */
+  --color-hairline: #26272c;
+
+  --color-emphasis: #1c1d22; /* elevated, not inverted */
+  --color-on-emphasis: #f2f2f3; /* 15.04:1 */
+
+  --color-accent: #f2f2f3;
+  --color-accent-on-emphasis: #f2f2f3;
+
+  color-scheme: dark; /* themes form controls, scrollbars, and the caret */
+}
+
+/* ---------------------------------------------------------------------------
+   Base
+--------------------------------------------------------------------------- */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  /* Runtime accent. Components always reference var(--accent) rather than a
+     fixed token, so an emphasis section can rebind it and keep AA contrast
+     without any component knowing. */
+  :root {
+    --accent: var(--color-accent);
+    color-scheme: light;
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Visible keyboard focus everywhere. Ink on paper is 17.9:1, far clear of
+     the 3:1 non-text minimum. */
+  :focus-visible {
+    outline: 2px solid var(--color-ink);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  ::selection {
+    background-color: var(--color-ink);
+    color: var(--color-paper);
+  }
+
+  /* Optical sizing lets Source Serif adjust its own proportions between
+     display and caption sizes. */
+  .font-display {
+    font-optical-sizing: auto;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Scroll reveals
+
+   Driven by IntersectionObserver (see components/motion/Reveal.tsx), animating
+   only opacity + transform so they stay on the compositor.
+
+   The `.js` guard is load-bearing: the hidden state is scoped to it, and the
+   class is only set by an inline script in <head>. Without JS — which is how
+   GPTBot, ClaudeBot, PerplexityBot and friends may fetch a page — none of this
+   applies and content renders fully visible. Never unscope these rules.
+--------------------------------------------------------------------------- */
+.js [data-reveal] {
+  opacity: 0;
+  transform: translate3d(0, 1.25rem, 0);
+  transition:
+    opacity 0.7s var(--ease-out-expo),
+    transform 0.7s var(--ease-out-expo);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+.js [data-reveal][data-revealed] {
+  opacity: 1;
+  transform: none;
+  will-change: auto;
+}
+
+/* ---------------------------------------------------------------------------
+   Language waveform (AI calling agents)
+
+   Bars animate transform: scaleY — never height, which would relayout every
+   frame. Each bar's phase comes from an inline --i, so one keyframe drives the
+   whole wave with no JS at all.
+--------------------------------------------------------------------------- */
+@keyframes fuchesi-wave {
+  0%,
+  100% {
+    transform: scaleY(0.2);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+.wave-bar {
+  transform-origin: center;
+  animation: fuchesi-wave 1.4s var(--ease-out-expo) infinite;
+  animation-delay: calc(var(--i) * -0.11s);
+}
+
+/* Cycles a highlight through the language chips. Every chip is always present
+   and legible in the DOM — this only tints one at a time, so the full list is
+   still readable by a crawler and under reduced motion. */
+/* on-emphasis, not paper: these chips live inside an emphasis section, where
+   `paper` re-points to the dark page background in dark mode and would render
+   the whole list invisible. */
+@keyframes fuchesi-chip {
+  0%,
+  8% {
+    color: var(--color-on-emphasis);
+    border-color: color-mix(in srgb, var(--color-on-emphasis) 45%, transparent);
+  }
+  16%,
+  100% {
+    color: color-mix(in srgb, var(--color-on-emphasis) 55%, transparent);
+    border-color: color-mix(in srgb, var(--color-on-emphasis) 15%, transparent);
+  }
+}
+
+.lang-chip {
+  animation: fuchesi-chip calc(var(--count) * 0.62s) linear infinite;
+  animation-delay: calc(var(--i) * 0.62s);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  /* The waveform freezes into a static form rather than animating. It still
+     reads as a waveform; it simply doesn't move. */
+  .wave-bar {
+    animation: none;
+    transform: scaleY(var(--rest, 0.5));
+  }
+
+  .lang-chip {
+    animation: none;
+  }
+
+  /* Reveals collapse to instant visibility rather than animating in. */
+  .js [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

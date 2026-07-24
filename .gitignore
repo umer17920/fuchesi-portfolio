@@ -4,6 +4,13 @@ node_modules/
 # Next.js build output
 .next/
 out/
+tsconfig.tsbuildinfo
+
+# scratch + generated artifacts — must never be pushed. tmp/ holds screenshots,
+# a local python doc runtime, and CV/document renders (some private); output/
+# holds generated documents.
+tmp/
+output/
 
 # local environment and secrets
 .env

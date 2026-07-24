@@ -1,0 +1,146 @@
+[
+  {
+    "order": 1,
+    "slug": "hfx-calculator",
+    "name": "HFX Calculator",
+    "description": "A focused toolkit for forex position and risk calculations.",
+    "tags": [
+      "Fintech",
+      "Web App"
+    ],
+    "url": "https://www.hfxcalculator.com/",
+    "legacyColor": "#d9ff69"
+  },
+  {
+    "order": 2,
+    "slug": "silver-halo",
+    "name": "Silver Halo",
+    "description": "Premium digital storefront with an editorial, product-first feel.",
+    "tags": [
+      "Ecommerce",
+      "Branding"
+    ],
+    "url": "https://www.silver-halo.com",
+    "legacyColor": "#cbd5e1"
+  },
+  {
+    "order": 3,
+    "slug": "allied-housing-solutions",
+    "name": "Allied Housing Solutions",
+    "description": "A trustworthy digital home for supported housing services.",
+    "tags": [
+      "Housing",
+      "Web Design"
+    ],
+    "url": "https://www.alliedhousingsolutions.com",
+    "legacyColor": "#8bd9c7"
+  },
+  {
+    "order": 4,
+    "slug": "elite-auto-hire",
+    "name": "Elite Auto Hire",
+    "description": "Premium vehicle hire brought to life through a cinematic interface.",
+    "tags": [
+      "Automotive",
+      "Booking"
+    ],
+    "url": "https://www.eliteautohire.co.uk",
+    "legacyColor": "#f4d35e"
+  },
+  {
+    "order": 5,
+    "slug": "chic-posh-lounge",
+    "name": "Chic & Posh Lounge",
+    "description": "A personality-rich home for beauty and lifestyle services.",
+    "tags": [
+      "Beauty",
+      "Bookings"
+    ],
+    "url": "https://www.chicandposhlounge.com",
+    "legacyColor": "#f6a6c1"
+  },
+  {
+    "order": 6,
+    "slug": "xtreme-pharmacy",
+    "name": "Xtreme Pharmacy",
+    "description": "A fast, accessible digital pharmacy experience for everyday care.",
+    "tags": [
+      "Healthcare",
+      "Ecommerce"
+    ],
+    "url": "https://www.xtremepharmacy.co.uk",
+    "legacyColor": "#8fe3cf"
+  },
+  {
+    "order": 7,
+    "slug": "the-ip-centre",
+    "name": "The IP Centre",
+    "description": "An authoritative destination for intellectual property expertise.",
+    "tags": [
+      "Legal",
+      "Content"
+    ],
+    "url": "https://www.theipcentre.com",
+    "legacyColor": "#a3b8ff"
+  },
+  {
+    "order": 8,
+    "slug": "the-im-centre",
+    "name": "The IM Centre",
+    "description": "A focused platform for innovation management services.",
+    "tags": [
+      "Consulting",
+      "Web Design"
+    ],
+    "url": "https://www.theimcentre.com",
+    "legacyColor": "#d2b7ff"
+  },
+  {
+    "order": 9,
+    "slug": "skyways-executive-travel",
+    "name": "Skyways Executive Travel",
+    "description": "Executive transport presented with quiet, premium confidence.",
+    "tags": [
+      "Travel",
+      "Bookings"
+    ],
+    "url": "https://www.skywaysexecutivetravel.co.uk",
+    "legacyColor": "#a9c9ff"
+  },
+  {
+    "order": 10,
+    "slug": "supernet-pharmacy",
+    "name": "Supernet Pharmacy",
+    "description": "Convenient healthcare and pharmacy services in one accessible hub.",
+    "tags": [
+      "Healthcare",
+      "Web App"
+    ],
+    "url": "https://www.supernetpharmacy.co.uk",
+    "legacyColor": "#78dcca"
+  },
+  {
+    "order": 11,
+    "slug": "lime-pickle",
+    "name": "Lime Pickle",
+    "description": "A flavourful takeaway experience built for quick online ordering.",
+    "tags": [
+      "Restaurant",
+      "Ordering"
+    ],
+    "url": "https://www.limepickleindiantakeaway.co.uk",
+    "legacyColor": "#cfff65"
+  },
+  {
+    "order": 12,
+    "slug": "kay-ali-mua",
+    "name": "Kay Ali MUA",
+    "description": "An elegant portfolio and booking home for a makeup artist.",
+    "tags": [
+      "Beauty",
+      "Portfolio"
+    ],
+    "url": "https://www.kayalimua.co.uk",
+    "legacyColor": "#f5b7b1"
+  }
+]
