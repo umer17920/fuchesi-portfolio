@@ -14,7 +14,12 @@
 
 [build]
   command = "npm run build"
-  # publish + functions are managed by the Next.js Runtime — intentionally unset.
+  # Pin the publish dir to .next explicitly. The Next.js Runtime targets .next,
+  # but this repo previously used static export (output: 'export' → out/), so
+  # Netlify's UI build setting was left pointing at `out` — which this build no
+  # longer produces, so Netlify published an empty folder and every route 404'd.
+  # Setting it here overrides the stale UI value (netlify.toml wins over the UI).
+  publish = ".next"
 
 [build.environment]
   NODE_VERSION = "22"
