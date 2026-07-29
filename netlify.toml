@@ -1,25 +1,26 @@
 # Netlify build configuration.
 #
-# The Next.js Runtime (v5) is auto-installed by Netlify the moment it detects a
-# Next app — it turns the app/api routes into serverless functions, handles ISR,
-# and serves next/image through Netlify's Image CDN. Do NOT add
-# @netlify/plugin-nextjs to package.json by hand; that is the old v4 approach and
-# conflicts with the auto-installed runtime.
+# The Next.js Runtime (v5) is what turns a `next build` into something Netlify
+# can actually serve: it moves the prerendered pages and static assets into the
+# CDN layout, wraps the server in a function (for /api/* and /studio), and wires
+# up ISR and next/image.
 #
-# This file only pins two things:
-#   1. the build command
-#   2. a Node version new enough for Next 16 (needs >= 20.9). Netlify's default
-#      can be older, which fails the build with a confusing error — pinning it
-#      is the fix.
+# It is declared EXPLICITLY below rather than relying on Netlify's automatic
+# framework detection. Auto-install did not happen on this site — builds
+# succeeded but published the raw `.next` directory as flat static files, so
+# `/` had no index.html and every route hit Netlify's own 404 page (the
+# giveaway: /BUILD_ID and /server/app/index.html were fetchable). Declaring the
+# plugin here and pinning it in devDependencies makes the runtime a build
+# input we control instead of something we hope Netlify infers.
 
 [build]
   command = "npm run build"
-  # Pin the publish dir to .next explicitly. The Next.js Runtime targets .next,
-  # but this repo previously used static export (output: 'export' → out/), so
-  # Netlify's UI build setting was left pointing at `out` — which this build no
-  # longer produces, so Netlify published an empty folder and every route 404'd.
-  # Setting it here overrides the stale UI value (netlify.toml wins over the UI).
+  # Required by the Next.js Runtime v5: it reads the Next build output from
+  # `.next` and rewrites it into the deployable layout during onBuild.
   publish = ".next"
 
 [build.environment]
   NODE_VERSION = "22"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
