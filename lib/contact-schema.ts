@@ -29,8 +29,13 @@ export const contactSchema = z.object({
   /**
    * Honeypot. Real people never see or fill this; bots fill every field they
    * find. A quiet, dependency-free filter that costs a legitimate user nothing.
+   *
+   * Deliberately NOT max(0): rejecting here would fail validation and hand the
+   * bot a field-level error naming the trap, teaching it exactly which input to
+   * leave alone next time. The routes accept a filled honeypot with a cheerful
+   * 200 and quietly discard it instead — see the `if (website)` checks.
    */
-  website: z.string().max(0).optional(),
+  website: z.string().max(200).optional(),
 });
 
 export type ContactInput = z.infer<typeof contactSchema>;
@@ -44,10 +49,15 @@ export const serviceOptions = [
 /**
  * Meeting-request schema.
  *
- * This is a *request*, not a live calendar booking: it records the visitor's
- * preferred date and time as a row, it does not check real availability or
- * block a calendar (that would need Cal.com/Calendly). Same honeypot, same
- * server-revalidation contract as the message form.
+ * A real booking against live availability, not a free-text wish. The visitor
+ * picks one generated slot and the client sends back its absolute start
+ * instant, never a wall-clock string — "10:00" is meaningless without a zone,
+ * and comparing zone-less strings is how double-bookings get in.
+ *
+ * This schema only checks shape. Whether the instant is a REAL slot (on a
+ * business day, on a 30-minute boundary, inside the booking window) is decided
+ * server-side by findSlotByStart in lib/booking/slots.ts, which regenerates the
+ * day's slots and demands an exact match. The browser cannot widen that.
  */
 export const bookingSchema = z.object({
   name: z.string().trim().min(1, 'Please tell us your name.').max(100),
@@ -57,10 +67,15 @@ export const bookingSchema = z.object({
     .min(1, 'We need an email address to confirm the meeting.')
     .email('That does not look like an email address.'),
   company: z.string().trim().max(120).optional().or(z.literal('')),
-  // Kept as strings: the browser's native date/time inputs already constrain
-  // the format, and we store them verbatim in the sheet rather than parsing.
-  preferredDate: z.string().trim().min(1, 'Pick a preferred date.').max(40),
-  preferredTime: z.string().trim().min(1, 'Pick a preferred time.').max(40),
+  /** UTC ISO instant of the chosen slot's start. */
+  slotStart: z
+    .string()
+    .trim()
+    .min(1, 'Pick a time.')
+    .max(40)
+    .refine((value) => !Number.isNaN(new Date(value).getTime()), 'Pick a time.'),
+  /** The visitor's IANA zone, so their local time is recorded alongside ours. */
+  visitorTimeZone: z.string().trim().min(1).max(64),
   topic: z.enum(serviceInterestValues, { message: 'What is the meeting about?' }),
   message: z
     .string()
@@ -68,7 +83,7 @@ export const bookingSchema = z.object({
     .max(2000, 'That is longer than this field allows.')
     .optional()
     .or(z.literal('')),
-  website: z.string().max(0).optional(), // honeypot
+  website: z.string().max(200).optional(), // honeypot — see contactSchema
 });
 
 export type BookingInput = z.infer<typeof bookingSchema>;

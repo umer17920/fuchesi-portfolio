@@ -1,8 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button } from '@/components/primitives/Button';
 import { Field, inputClass } from '@/components/primitives/Field';
+import { SlotPicker } from '@/components/contact/SlotPicker';
 import { bookingSchema, contactSchema, serviceOptions } from '@/lib/contact-schema';
 import { site } from '@/lib/site';
 
@@ -16,18 +17,56 @@ const EMPTY = {
   serviceInterest: '', // doubles as "topic" in meeting mode
   message: '',
   preferredDate: '',
-  preferredTime: '',
+  /** Absolute ISO instant of the chosen slot — never a wall-clock string. */
+  slotStart: '',
   website: '', // honeypot
 };
 
-// Native date input min — no requesting a meeting in the past.
-const today = new Date().toISOString().slice(0, 10);
+/**
+ * The visitor's IANA timezone, read from the browser.
+ *
+ * Resolved lazily rather than at module scope: this component pre-renders on
+ * the server, where the "browser timezone" would be the build machine's.
+ */
+function resolveTimeZone(): string {
+  try {
+    return Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC';
+  } catch {
+    return 'UTC';
+  }
+}
 
 export function ContactForm() {
   const [mode, setMode] = useState<Mode>('message');
   const [values, setValues] = useState(EMPTY);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [status, setStatus] = useState<Status>('idle');
+  const [visitorTimeZone, setVisitorTimeZone] = useState('');
+  const [window_, setWindow] = useState<{ minDate: string; maxDate: string } | null>(null);
+  const [slotRefresh, setSlotRefresh] = useState(0);
+  const [slotTaken, setSlotTaken] = useState(false);
+  const [outcome, setOutcome] = useState<{ requiresConfirmation: boolean; ourTime?: string } | null>(
+    null,
+  );
+
+  useEffect(() => setVisitorTimeZone(resolveTimeZone()), []);
+
+  // Fetch the bookable window once the visitor shows interest, so the date
+  // input cannot offer days the server would reject anyway.
+  useEffect(() => {
+    if (mode !== 'meeting' || window_) return;
+    let cancelled = false;
+    fetch('/api/availability', { cache: 'no-store' })
+      .then((res) => res.json())
+      .then((data: { minDate?: string; maxDate?: string }) => {
+        if (cancelled || !data.minDate || !data.maxDate) return;
+        setWindow({ minDate: data.minDate, maxDate: data.maxDate });
+      })
+      .catch(() => undefined);
+    return () => {
+      cancelled = true;
+    };
+  }, [mode, window_]);
 
   const set = (key: keyof typeof EMPTY) => (e: { target: { value: string } }) => {
     setValues((v) => ({ ...v, [key]: e.target.value }));
@@ -39,8 +78,22 @@ export function ContactForm() {
     setMode(next);
     setErrors({});
     setStatus('idle');
+    setSlotTaken(false);
     // Keep name/email/company; clear the mode-specific fields.
-    setValues((v) => ({ ...v, message: '', preferredDate: '', preferredTime: '' }));
+    setValues((v) => ({ ...v, message: '', preferredDate: '', slotStart: '' }));
+  };
+
+  /** Picking a different date invalidates the chosen time. */
+  const onDateChange = (e: { target: { value: string } }) => {
+    setValues((v) => ({ ...v, preferredDate: e.target.value, slotStart: '' }));
+    setErrors((prev) => ({ ...prev, preferredDate: '', slotStart: '' }));
+    setSlotTaken(false);
+  };
+
+  const onSlotChange = (startIso: string) => {
+    setValues((v) => ({ ...v, slotStart: startIso }));
+    setErrors((prev) => (prev.slotStart ? { ...prev, slotStart: '' } : prev));
+    setSlotTaken(false);
   };
 
   async function onSubmit(e: React.FormEvent) {
@@ -63,8 +116,8 @@ export function ContactForm() {
             email: values.email,
             company: values.company,
             topic: values.serviceInterest,
-            preferredDate: values.preferredDate,
-            preferredTime: values.preferredTime,
+            slotStart: values.slotStart,
+            visitorTimeZone: visitorTimeZone || resolveTimeZone(),
             message: values.message,
             website: values.website,
           };
@@ -94,11 +147,30 @@ export function ContactForm() {
       });
 
       if (res.ok) {
+        const data = await res.json().catch(() => ({}));
+        setOutcome({
+          requiresConfirmation: Boolean(data.requiresConfirmation),
+          ourTime: data.ourTime,
+        });
         setStatus('success');
         setValues(EMPTY);
         return;
       }
+
       const data = await res.json().catch(() => ({}));
+
+      // Lost the race: somebody claimed this slot between the grid loading and
+      // this submit. Repaint the board rather than showing an error — the tile
+      // simply greys out, which is the honest picture of what happened.
+      if (res.status === 409 && data.error === 'slotTaken') {
+        setValues((v) => ({ ...v, slotStart: '' }));
+        setSlotTaken(true);
+        setSlotRefresh((n) => n + 1);
+        setStatus('idle');
+        document.getElementById('field-slotStart')?.scrollIntoView({ block: 'center' });
+        return;
+      }
+
       if (data.fieldErrors) {
         const fe = { ...data.fieldErrors };
         if (fe.topic) fe.serviceInterest = fe.topic;
@@ -113,23 +185,36 @@ export function ContactForm() {
   }
 
   if (status === 'success') {
+    const heading =
+      mode !== 'meeting'
+        ? 'Message sent.'
+        : outcome?.requiresConfirmation
+          ? 'Check your email.'
+          : 'Meeting booked.';
+
+    const detail =
+      mode !== 'meeting'
+        ? 'We read everything that comes in and reply within one working day. If it is urgent, WhatsApp us on '
+        : outcome?.requiresConfirmation
+          ? 'We are holding that time for you. Click the link in the email we just sent to lock it in — if you do not, the slot reopens automatically. If it is urgent, WhatsApp us on '
+          : 'It is in the diary and we have emailed you the details. If it is urgent, WhatsApp us on ';
+
     return (
       <div role="status" className="rounded-lg border border-hairline bg-paper-raised p-8">
-        <h2 className="font-display text-display-s">
-          {mode === 'meeting' ? 'Meeting requested.' : 'Message sent.'}
-        </h2>
+        <h2 className="font-display text-display-s">{heading}</h2>
         <p className="mt-4 max-w-[52ch] text-body-m text-muted">
-          {mode === 'meeting'
-            ? 'We have your request and will confirm a time by email within one working day. If it is urgent, WhatsApp us on '
-            : 'We read everything that comes in and reply within one working day. If it is urgent, WhatsApp us on '}
+          {detail}
           {site.contact.whatsappDisplay}.
         </p>
         <button
           type="button"
-          onClick={() => setStatus('idle')}
+          onClick={() => {
+            setStatus('idle');
+            setOutcome(null);
+          }}
           className="mt-6 border-b border-hairline pb-1 text-body-s transition-colors duration-300 hover:border-ink"
         >
-          {mode === 'meeting' ? 'Request another' : 'Send another'}
+          {mode === 'meeting' ? 'Book another' : 'Send another'}
         </button>
       </div>
     );
@@ -235,32 +320,49 @@ export function ContactForm() {
       </Field>
 
       {meeting && (
-        <div className="grid gap-6 sm:grid-cols-2">
-          <Field label="Preferred date" name="preferredDate" error={errors.preferredDate}>
+        <div className="space-y-6">
+          <div className="sm:max-w-xs">
+            <Field label="Pick a date" name="preferredDate" error={errors.preferredDate}>
+              {(p) => (
+                <input
+                  {...p}
+                  name="preferredDate"
+                  type="date"
+                  min={window_?.minDate}
+                  max={window_?.maxDate}
+                  value={values.preferredDate}
+                  onChange={onDateChange}
+                  className={inputClass}
+                />
+              )}
+            </Field>
+          </div>
+
+          <Field label="Pick a time" name="slotStart" error={errors.slotStart}>
             {(p) => (
-              <input
-                {...p}
-                name="preferredDate"
-                type="date"
-                min={today}
-                value={values.preferredDate}
-                onChange={set('preferredDate')}
-                className={inputClass}
-              />
+              <div id={p.id} tabIndex={-1}>
+                <SlotPicker
+                  date={values.preferredDate}
+                  value={values.slotStart}
+                  onChange={onSlotChange}
+                  visitorTimeZone={visitorTimeZone}
+                  refreshKey={slotRefresh}
+                  describedBy={p['aria-describedby']}
+                  invalid={p['aria-invalid']}
+                />
+              </div>
             )}
           </Field>
-          <Field label="Preferred time" name="preferredTime" error={errors.preferredTime}>
-            {(p) => (
-              <input
-                {...p}
-                name="preferredTime"
-                type="time"
-                value={values.preferredTime}
-                onChange={set('preferredTime')}
-                className={inputClass}
-              />
-            )}
-          </Field>
+
+          {slotTaken && (
+            <p
+              role="status"
+              className="rounded-lg border border-hairline bg-paper-raised px-4 py-3 text-body-s"
+            >
+              That time was taken while you were filling this in — it is greyed out now. Pick another
+              and you are done.
+            </p>
+          )}
         </div>
       )}
 
