@@ -22,5 +22,23 @@
 [build.environment]
   NODE_VERSION = "22"
 
+  # Netlify fails a build if the VALUE of any environment variable also appears
+  # in the build output. That is the right default for a private key, but three
+  # of this site's values are ordinary words that are guaranteed to appear:
+  #
+  #   GOOGLE_SHEET_TAB              "Submissions" is the hardcoded fallback in
+  #                                 lib/sheets.ts
+  #   NEXT_PUBLIC_SANITY_DATASET    "production" appears all over any Next build
+  #   NEXT_PUBLIC_SANITY_API_VERSION  the date string is a default in
+  #                                 lib/sanity/env.ts
+  #   NEXT_PUBLIC_SANITY_PROJECT_ID NEXT_PUBLIC_ values are inlined into the
+  #                                 client bundle by design — they are public
+  #
+  # None of these are secrets: a tab name, a dataset name, a version date and a
+  # public project id. Omitting them keeps scanning ON for everything that
+  # actually matters — the private key, the Resend key, the Sanity write token
+  # and the revalidate secret are all still scanned.
+  SECRETS_SCAN_OMIT_KEYS = "GOOGLE_SHEET_TAB,NEXT_PUBLIC_SANITY_DATASET,NEXT_PUBLIC_SANITY_API_VERSION,NEXT_PUBLIC_SANITY_PROJECT_ID"
+
 [[plugins]]
   package = "@netlify/plugin-nextjs"
