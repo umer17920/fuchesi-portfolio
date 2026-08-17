@@ -194,17 +194,17 @@ export function ContactForm() {
 
     const detail =
       mode !== 'meeting'
-        ? 'We read everything that comes in and reply within one working day. If it is urgent, WhatsApp us on '
+        ? 'We read everything that comes in and reply within one working day. If it is urgent, call or text us on '
         : outcome?.requiresConfirmation
-          ? 'We are holding that time for you. Click the link in the email we just sent to lock it in, or the slot reopens automatically. If it is urgent, WhatsApp us on '
-          : 'It is in the diary and we have emailed you the details. If it is urgent, WhatsApp us on ';
+          ? 'We are holding that time for you. Click the link in the email we just sent to lock it in, or the slot reopens automatically. If it is urgent, call or text us on '
+          : 'It is in the diary and we have emailed you the details. If it is urgent, call or text us on ';
 
     return (
       <div role="status" className="rounded-lg border border-hairline bg-paper-raised p-8">
         <h2 className="font-display text-display-s">{heading}</h2>
         <p className="mt-4 max-w-[52ch] text-body-m text-muted">
           {detail}
-          {site.contact.whatsappDisplay}.
+          {site.contact.phoneDisplay}.
         </p>
         <button
           type="button"

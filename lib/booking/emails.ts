@@ -118,7 +118,7 @@ export async function sendConfirmedEmail(summary: BookingSummary) {
       ['Topic', summary.topicLabel],
       ['Length', bookingConfig.durationLabel],
     ]),
-    `<p style="margin:24px 0 0;font-size:14px;color:#666970">Need to cancel? <a href="${cancel}" style="color:#0b0b0c">Release this time</a>. If something urgent comes up, WhatsApp ${escapeHtml(site.contact.whatsappDisplay)}.</p>`,
+    `<p style="margin:24px 0 0;font-size:14px;color:#666970">Need to cancel? <a href="${cancel}" style="color:#0b0b0c">Release this time</a>. If something urgent comes up, call ${escapeHtml(site.contact.phoneDisplay)}.</p>`,
   ].join(''));
 
   const text = [

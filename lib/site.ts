@@ -36,8 +36,31 @@ export const site = {
     // CONTACT_TO is unset, so the mailbox (or an alias forwarding to a real
     // inbox) has to exist or enquiries bounce.
     email: 'contact@fuchesi.com',
-    whatsapp: '+971559656975',
-    whatsappDisplay: '+971 55 965 6975',
+
+    /**
+     * US number, which matters now the site targets the United States. A buyer
+     * in California reading a +971 number draws conclusions before reading a
+     * word of the copy.
+     *
+     * `phone` is E.164 for tel: links and schema; `phoneDisplay` is the human
+     * form. Keep both in step.
+     */
+    phone: '+19496474360',
+    phoneDisplay: '+1 (949) 647-4360',
+
+    /**
+     * WhatsApp, only when the number is actually registered on it.
+     *
+     * Kept separate from `phone` on purpose. A wa.me link to a number that is
+     * not on WhatsApp does not fail quietly: WhatsApp shows the visitor a
+     * "phone number shared via url is invalid" page, which is a worse outcome
+     * than never offering the channel. Every WhatsApp link and every mention of
+     * WhatsApp in the copy is conditional on this being set.
+     *
+     * To turn it back on: register the number on WhatsApp Business, then set
+     * this to the E.164 string, e.g. '+19496474360'.
+     */
+    whatsapp: null as string | null,
   },
 
   /**
@@ -68,10 +91,16 @@ export const site = {
     },
   ],
 
-  /** TODO: confirm — no social profiles were live on the previous site. Each
-   *  entry added here is emitted as a sameAs in Organization schema, which is
-   *  a primary way AI systems disambiguate a company. Worth having. */
-  sameAs: [] as string[],
+  /**
+   * Profiles Fuchesi controls elsewhere, emitted as sameAs in Organization
+   * schema. This is a primary way search engines and AI systems confirm that
+   * the company on this domain and the company on that profile are one entity.
+   *
+   * Canonical URLs only. The share links Instagram hands you carry an ?igsh=
+   * tracking token that identifies the share, not the profile, and it would
+   * make the sameAs fail to match the profile's own canonical URL.
+   */
+  sameAs: ['https://www.instagram.com/fuchesi_ai'] as string[],
 
   /**
    * Google Search Console verification token.

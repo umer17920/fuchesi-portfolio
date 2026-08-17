@@ -46,16 +46,45 @@ export default function ContactPage() {
               </div>
 
               <div>
-                <h2 className="text-eyebrow uppercase text-muted">WhatsApp</h2>
+                <h2 className="text-eyebrow uppercase text-muted">Phone</h2>
                 <a
-                  href={`https://wa.me/${site.contact.whatsapp.replace(/[^0-9]/g, '')}`}
-                  target="_blank"
-                  rel="noreferrer"
+                  href={`tel:${site.contact.phone}`}
                   className="mt-2 block text-body-m underline decoration-hairline underline-offset-4 transition-colors duration-300 hover:decoration-ink"
                 >
-                  {site.contact.whatsappDisplay}
+                  {site.contact.phoneDisplay}
                 </a>
               </div>
+
+              {site.contact.whatsapp && (
+                <div>
+                  <h2 className="text-eyebrow uppercase text-muted">WhatsApp</h2>
+                  <a
+                    href={`https://wa.me/${site.contact.whatsapp.replace(/[^0-9]/g, '')}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="mt-2 block text-body-m underline decoration-hairline underline-offset-4 transition-colors duration-300 hover:decoration-ink"
+                  >
+                    {site.contact.whatsapp}
+                  </a>
+                </div>
+              )}
+
+              {site.sameAs.length > 0 && (
+                <div>
+                  <h2 className="text-eyebrow uppercase text-muted">Elsewhere</h2>
+                  {site.sameAs.map((href) => (
+                    <a
+                      key={href}
+                      href={href}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="mt-2 block text-body-m underline decoration-hairline underline-offset-4 transition-colors duration-300 hover:decoration-ink"
+                    >
+                      {href.includes('instagram') ? 'Instagram' : new URL(href).hostname}
+                    </a>
+                  ))}
+                </div>
+              )}
 
               <div className="border-t border-hairline pt-8">
                 <h2 className="text-eyebrow uppercase text-muted">What happens next</h2>

@@ -71,13 +71,24 @@ export function Footer() {
               {site.contact.email}
             </a>
             <a
-              href={`https://wa.me/${site.contact.whatsapp.replace(/[^0-9]/g, '')}`}
-              target="_blank"
-              rel="noreferrer"
+              href={`tel:${site.contact.phone}`}
               className="text-body-s text-ink transition-colors duration-300 hover:text-[var(--accent)]"
             >
-              {site.contact.whatsappDisplay}
+              {site.contact.phoneDisplay}
             </a>
+            {/* Instagram is the one profile that exists. Linking it from every
+                page is also what gives the profile a reason to rank. */}
+            {site.sameAs.map((href) => (
+              <a
+                key={href}
+                href={href}
+                target="_blank"
+                rel="noreferrer"
+                className="text-body-s text-ink transition-colors duration-300 hover:text-[var(--accent)]"
+              >
+                {href.includes('instagram') ? 'Instagram' : new URL(href).hostname}
+              </a>
+            ))}
           </div>
         </div>
       </div>

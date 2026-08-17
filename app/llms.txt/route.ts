@@ -34,7 +34,7 @@ export async function GET() {
   lines.push('');
   lines.push(`Website: ${site.url}`);
   lines.push(`Contact: ${site.contact.email}`);
-  lines.push(`WhatsApp: ${site.contact.whatsappDisplay}`);
+  lines.push(`Phone: ${site.contact.phoneDisplay}`);
   lines.push(`Projects delivered: ${projects.length}`);
   lines.push('');
 

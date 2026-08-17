@@ -84,7 +84,7 @@ export function organizationSchema() {
       '@type': 'ContactPoint',
       contactType: 'sales',
       email: site.contact.email,
-      telephone: site.contact.whatsapp,
+      telephone: site.contact.phone,
       areaServed: AREA_SERVED,
       availableLanguage: languageNames,
     },
