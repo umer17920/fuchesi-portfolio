@@ -38,7 +38,16 @@
   # public project id. Omitting them keeps scanning ON for everything that
   # actually matters — the private key, the Resend key, the Sanity write token
   # and the revalidate secret are all still scanned.
-  SECRETS_SCAN_OMIT_KEYS = "GOOGLE_SHEET_TAB,NEXT_PUBLIC_SANITY_DATASET,NEXT_PUBLIC_SANITY_API_VERSION,NEXT_PUBLIC_SANITY_PROJECT_ID"
+  #
+  # CONTACT_TO and CONTACT_FROM are added for the same reason, ahead of Resend
+  # being wired up. CONTACT_TO is almost always contact@fuchesi.com, and that
+  # exact string is printed in the footer, on the contact page and in llms.txt,
+  # so scanning it would fail every build the moment the variable is set.
+  # An address the site already publishes is not a secret.
+  #
+  # RESEND_API_KEY is deliberately NOT omitted. It is a real credential, it
+  # never appears in build output, and it should keep being scanned.
+  SECRETS_SCAN_OMIT_KEYS = "GOOGLE_SHEET_TAB,NEXT_PUBLIC_SANITY_DATASET,NEXT_PUBLIC_SANITY_API_VERSION,NEXT_PUBLIC_SANITY_PROJECT_ID,CONTACT_TO,CONTACT_FROM"
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
