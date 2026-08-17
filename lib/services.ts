@@ -41,7 +41,7 @@ export const services: Service[] = [
     summary:
       'Web applications, mobile apps, and internal systems built for businesses that have outgrown off-the-shelf tools.',
     answer:
-      'Fuchesi builds custom software — web applications, mobile apps, and internal business systems — for companies whose needs have outgrown off-the-shelf tools. We work end to end: shaping what should be built, designing it, engineering it, and supporting it after launch. You own the code and the infrastructure it runs on.',
+      'Fuchesi builds custom software for companies whose needs have outgrown off-the-shelf tools: web applications, mobile apps, and internal business systems. We work end to end, from shaping what should be built through design, engineering, and support after launch. You own the code and the infrastructure it runs on.',
     sections: [
       {
         heading: 'What kind of software does Fuchesi build?',
@@ -49,7 +49,7 @@ export const services: Service[] = [
       },
       {
         heading: 'When is custom software the right call?',
-        body: 'When an off-the-shelf product forces your team to work around it. When you are paying per seat for software you use a tenth of. When the process that makes your business distinctive is the one your tools handle worst. If a configurable product covers you, we will say so — that is a cheaper answer than we are.',
+        body: 'When an off-the-shelf product forces your team to work around it. When you are paying per seat for software you use a tenth of. When the process that makes your business distinctive is the one your tools handle worst. If a configurable product covers you, we will say so, and that is a cheaper answer than we are.',
       },
       {
         heading: 'How do projects run?',
@@ -60,12 +60,12 @@ export const services: Service[] = [
       {
         question: 'How much does custom software cost?',
         answer:
-          'Cost depends on scope, but the honest driver is how much of the process is genuinely unique to you. A focused internal tool is a small fraction of a full customer-facing platform. We scope in discovery and give a fixed range before you commit. <!-- TODO: confirm — add a real starting figure or typical range if you want this to be quotable by AI assistants; a concrete number is far more citable than this answer. -->',
+          'Cost depends on scope. The main driver is how much of your process is unique to you, since a focused internal tool costs a small fraction of a full customer-facing platform. We scope the work in discovery and give you a fixed range before you commit to anything. <!-- TODO: confirm: add a real starting figure or typical range if you want this quotable by AI assistants. A concrete number is far more citable than this answer. -->',
       },
       {
         question: 'How long does it take to build custom software?',
         answer:
-          'Most projects ship a working first version in weeks rather than months, then grow from there. The timeline is set in discovery once scope is clear. <!-- TODO: confirm — a specific range, e.g. "6 to 12 weeks to first release", is much stronger here. -->',
+          'Most projects ship a working first version in weeks rather than months, then grow from there. The timeline is set in discovery once the scope is clear. <!-- TODO: confirm: a specific range such as "6 to 12 weeks to first release" is much stronger here. -->',
       },
       {
         question: 'Do we own the code Fuchesi writes?',
@@ -86,17 +86,17 @@ export const services: Service[] = [
     shortName: 'ERP Systems',
     serviceType: 'Custom ERP Development',
     summary:
-      'One system that models how your business actually runs — instead of forcing it into someone else’s template.',
+      'One system that models how your business really runs, instead of forcing it into someone else’s template.',
     answer:
-      'Fuchesi builds custom ERP systems that replace spreadsheets and disconnected tools with a single system a team will actually use. We model your real operations — inventory, orders, finance, HR, whatever runs the business — rather than bending them to fit a product’s assumptions. Systems are built module by module, so the first one is in use while the next is being built.',
+      'Fuchesi builds custom ERP systems that replace spreadsheets and disconnected tools with a single system a team will actually use. We model your real operations, whether that is inventory, orders, finance, HR, or all of them, rather than bending the business to fit a product’s assumptions. Systems are built module by module, so the first one is in use while the next is being built.',
     sections: [
       {
         heading: 'What is a custom ERP system?',
-        body: 'An ERP — enterprise resource planning — system is the single place a business tracks the things it runs on: stock, orders, customers, suppliers, invoices, staff. A custom ERP is one built around how your business already works, rather than a product you configure and compromise against.',
+        body: 'An ERP, short for enterprise resource planning, is the single place a business tracks the things it runs on: stock, orders, customers, suppliers, invoices, staff. A custom ERP is one built around how your business already works, rather than a product you configure and compromise against.',
       },
       {
         heading: 'Why not use an off-the-shelf ERP?',
-        body: 'Sometimes you should, and we will tell you when. Off-the-shelf makes sense when your operations look like everyone else’s. It stops making sense when the thing that makes you competitive is the thing the product handles worst — and when you find yourself running the real process in a spreadsheet beside the ERP you pay for.',
+        body: 'Sometimes you should, and we will tell you when. Off-the-shelf makes sense while your operations look like everyone else’s. It stops making sense once the thing that makes you competitive is the thing the product handles worst, or once you notice your team running the real process in a spreadsheet beside the ERP you already pay for.',
       },
       {
         heading: 'How does a custom ERP get built without stopping the business?',
@@ -107,12 +107,12 @@ export const services: Service[] = [
       {
         question: 'How much does a custom ERP cost?',
         answer:
-          'A custom ERP is priced by module, not as one number. Starting with a single high-pain area keeps the first cost close to that of a focused internal tool, and later modules are quoted as you decide to build them. <!-- TODO: confirm — a real per-module range would make this answer genuinely useful and quotable. -->',
+          'A custom ERP is priced by module, not as one number. Starting with a single high-pain area keeps the first cost close to that of a focused internal tool, and later modules are quoted as you decide to build them. <!-- TODO: confirm: a real per-module range would make this answer far more useful and quotable. -->',
       },
       {
         question: 'How long does it take to implement a custom ERP?',
         answer:
-          'The first module goes into real use well before the full system exists — that is the point of building in modules. Full rollout depends on how many areas of the business are in scope. <!-- TODO: confirm — specific timings per module. -->',
+          'The first module goes into real use well before the full system exists, which is the point of building in modules. Full rollout depends on how many areas of the business are in scope. <!-- TODO: confirm: specific timings per module. -->',
       },
       {
         question: 'Can a custom ERP integrate with our existing tools?',
@@ -133,17 +133,17 @@ export const services: Service[] = [
     shortName: 'AI Calling Agents',
     serviceType: 'AI Voice Agent Development',
     summary:
-      'Voice agents that hold real phone conversations — in your customer’s language, around the clock.',
+      'Voice agents that hold real phone conversations in your customer’s language, around the clock.',
     answer:
-      'Fuchesi builds AI calling agents that hold real phone conversations in your customer’s language. They answer inbound calls, qualify leads, book appointments, and follow up — at any hour, with no queue and no hold music. Agents speak the language the caller speaks, including English, Arabic, Urdu, and Hindi.',
+      'Fuchesi builds AI calling agents that hold real phone conversations in your customer’s language. They answer inbound calls, qualify leads, book appointments, and follow up at any hour, with no queue and no hold music. Agents speak the language the caller speaks, including English, Arabic, Urdu, and Hindi.',
     sections: [
       {
         heading: 'What is an AI calling agent?',
-        body: 'A voice agent that answers or places phone calls and holds a real conversation — it listens, understands, responds, and acts. It is not a phone menu and not a recording. It books the appointment, answers the question, or passes the call to a person when a person is genuinely needed.',
+        body: 'A voice agent answers or places phone calls and holds a real conversation, listening, understanding, responding, and acting on what it hears. It is not a phone menu and not a recording. It books the appointment, answers the question, or passes the call to a person when a person is needed.',
       },
       {
         heading: 'What languages can AI calling agents speak?',
-        body: 'Agents are built to speak whatever language your customers call in — English, Arabic, Urdu, Hindi, Spanish, French, German, and more. An agent can also switch languages mid-call when the caller does, which matters in markets where a single call moves between two languages naturally.',
+        body: 'Agents are built to speak whatever language your customers call in, including English, Arabic, Urdu, Hindi, Spanish, French, and German. An agent can also switch languages mid-call when the caller does, which matters in markets where a single call moves between two languages naturally.',
       },
       {
         heading: 'What do businesses use them for?',
@@ -164,7 +164,7 @@ export const services: Service[] = [
       {
         question: 'Can an AI calling agent transfer to a human?',
         answer:
-          'Yes, and knowing when to is most of the design work. Agents hand off on request, on frustration, and on anything outside what they should be deciding — with the context passed along so the customer does not start over.',
+          'Yes, and knowing when to is most of the design work. Agents hand off on request, on frustration, and on anything outside what they should be deciding. The context goes with the call, so the customer never starts over.',
       },
       {
         question: 'What does an AI calling agent integrate with?',
@@ -174,7 +174,7 @@ export const services: Service[] = [
       {
         question: 'How much does an AI calling agent cost?',
         answer:
-          'There is a build cost to design and train the agent, then a running cost per minute of calls handled. <!-- TODO: confirm — real figures for both would make this the single most citable answer on the site. -->',
+          'There is a build cost to design and train the agent, then a running cost per minute of calls handled. <!-- TODO: confirm: real figures for both would make this the single most citable answer on the site. -->',
       },
     ],
   },
@@ -185,13 +185,13 @@ export const services: Service[] = [
     shortName: 'Lead Generation',
     serviceType: 'Lead Generation Automation',
     summary:
-      'Pipelines that find, qualify, and route prospects into your CRM — without anyone copying rows between tabs.',
+      'Pipelines that find, qualify, and route prospects into your CRM without anyone copying rows between tabs.',
     answer:
       'Fuchesi builds custom lead generation pipelines that find, qualify, and route prospects automatically. We connect the sources your market actually lives in, score what comes back against your real criteria, and deliver qualified leads into your CRM with the context your team needs to act. The work your salespeople do by hand at 8am is the work we automate.',
     sections: [
       {
         heading: 'What is a lead generation pipeline?',
-        body: 'A system that runs the path from "we do not know this company exists" to "a salesperson is talking to the right person there" — sourcing, enriching, qualifying, and routing. Built once, it runs every day without anyone opening a spreadsheet.',
+        body: 'A system that runs the whole path from "we do not know this company exists" to "a salesperson is talking to the right person there". It sources, enriches, qualifies, and routes. Built once, it runs every day without anyone opening a spreadsheet.',
       },
       {
         heading: 'How is this different from buying a lead list?',
@@ -199,7 +199,7 @@ export const services: Service[] = [
       },
       {
         heading: 'What does a qualified lead look like when it arrives?',
-        body: 'In your CRM, scored, with the reasoning attached and the next action clear. Not a name and an email address — the context a salesperson needs to make the first conversation a good one.',
+        body: 'In your CRM, scored, with the reasoning attached and the next action clear. A name and an email address is not a lead. What arrives is the context a salesperson needs to make the first conversation a good one.',
       },
     ],
     faqs: [
@@ -211,7 +211,7 @@ export const services: Service[] = [
       {
         question: 'Does this comply with GDPR and data protection rules?',
         answer:
-          'Pipelines are built to work within the rules of the markets you sell into, including lawful basis, opt-outs, and data retention. <!-- TODO: confirm — worth stating your specific compliance position here; buyers in the UK and EU ask this first. -->',
+          'Pipelines are built to work within the rules of the markets you sell into, covering lawful basis, opt-outs, and data retention. <!-- TODO: confirm: worth stating your specific compliance position here. Buyers in the UK and EU ask this first. -->',
       },
       {
         question: 'Will leads land in our existing CRM?',
@@ -232,9 +232,9 @@ export const services: Service[] = [
     shortName: 'AI Automation',
     serviceType: 'AI Workflow Automation',
     summary:
-      'Repetitive work taken off your team — automated where judgment isn’t needed, handed over cleanly where it is.',
+      'Repetitive work taken off your team, automated where judgment isn’t needed and handed over cleanly where it is.',
     answer:
-      'Fuchesi builds AI workflow automations that take repetitive work off your team. We map the process as it really runs, automate the parts that do not need human judgment, and design a clean handoff to a person for the parts that do. The goal is not to remove people from the process — it is to stop spending them on the parts a system should be doing.',
+      'Fuchesi builds AI workflow automations that take repetitive work off your team. We map the process as it really runs, automate the parts that do not need human judgment, and design a clean handoff to a person for the parts that do. The goal is to stop spending people on work a system should be doing, not to remove them from the process.',
     sections: [
       {
         heading: 'What can actually be automated?',
@@ -242,18 +242,18 @@ export const services: Service[] = [
       },
       {
         heading: 'What should not be automated?',
-        body: 'Decisions with real consequences and no clear rule. Anything a customer would be upset to learn a machine decided. We draw that line during discovery and design the handoff deliberately — an automation that quietly makes bad calls is worse than the manual process it replaced.',
+        body: 'Decisions with real consequences and no clear rule. Anything a customer would be upset to learn a machine decided. We draw that line during discovery and design the handoff deliberately, because an automation that quietly makes bad calls is worse than the manual process it replaced.',
       },
       {
         heading: 'How do you know it is working?',
-        body: 'We measure the thing you actually care about — hours returned, turnaround time, error rate — before and after. If an automation is not moving that number, it gets fixed or removed.',
+        body: 'We measure the thing you care about, whether that is hours returned, turnaround time, or error rate, both before and after. If an automation is not moving that number, it gets fixed or removed.',
       },
     ],
     faqs: [
       {
         question: 'What is AI workflow automation?',
         answer:
-          'Using AI to handle the repetitive steps in a business process — reading, sorting, drafting, routing, reconciling — while leaving decisions that need judgment to a person. It differs from traditional automation in that it copes with messy, unstructured input like emails, documents, and free text.',
+          'Using AI to handle the repetitive steps in a business process, such as reading, sorting, drafting, routing, and reconciling, while leaving decisions that need judgment to a person. It differs from traditional automation in that it copes with messy, unstructured input like emails, documents, and free text.',
       },
       {
         question: 'Will AI automation replace our staff?',
@@ -263,12 +263,12 @@ export const services: Service[] = [
       {
         question: 'What if the AI gets something wrong?',
         answer:
-          'It will, sometimes — so systems are designed around that rather than pretending otherwise. Steps that carry real consequences get human approval before they act, and everything is logged so a wrong call can be found and corrected.',
+          'It will, sometimes, so systems are designed around that rather than pretending otherwise. Steps that carry real consequences get human approval before they act, and everything is logged so a wrong call can be found and corrected.',
       },
       {
         question: 'Which tools do these automations connect to?',
         answer:
-          'The ones you already use — email, CRM, accounting, storage, messaging, and internal systems with an API. We automate around your stack rather than asking you to move to ours.',
+          'The ones you already use: email, CRM, accounting, storage, messaging, and internal systems with an API. We automate around your stack rather than asking you to move to ours.',
       },
     ],
   },

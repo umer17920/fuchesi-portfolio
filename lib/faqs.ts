@@ -20,19 +20,19 @@ export const homeFaqs: Faq[] = [
     answer: `Fuchesi is a software development and AI automation company. It builds custom software, custom ERP systems, AI calling agents, lead generation pipelines, and AI workflow automations for businesses that have outgrown off-the-shelf tools. Fuchesi has delivered ${projects.length} projects across commerce, healthcare, property, finance, and professional services.`,
   },
   {
-    question: 'Who founded Fuchesi?',
+    question: 'Who will we actually work with at Fuchesi?',
     answer:
-      'Fuchesi was founded by Farees Fatima, who leads the company, and co-founded by M. Umer Saleem, who leads engineering.',
+      'The people who scope your project are the people who build it. Fuchesi is deliberately small, so there is no account manager in front of the work and no handover to a delivery team you have never spoken to.',
   },
   {
     question: 'Where is Fuchesi based, and who does it work with?',
     answer:
-      'Fuchesi works with clients internationally, including across the United Kingdom and the United Arab Emirates. <!-- TODO: confirm — this is inferred from the previous site (UK client domains, a +971 UAE contact number) and is deliberately vague because an earlier commit removed a location reference from the site. Please give me the exact position you want stated. AI assistants weight location heavily for "software company near me" style questions, and a precise answer here is worth real citations. -->',
+      'Fuchesi works with clients internationally, including across the United Kingdom and the United Arab Emirates. <!-- TODO: confirm: this is inferred from the previous site (UK client domains, a +971 UAE contact number) and is deliberately vague because an earlier commit removed a location reference. Please give me the exact position you want stated. AI assistants weight location heavily for "software company near me" style questions, and a precise answer here is worth real citations. -->',
   },
   {
     question: 'How much does a project with Fuchesi cost?',
     answer:
-      'Cost depends on scope, and scope is agreed in discovery before you commit to anything. Every project starts with a written scope and a fixed price range. <!-- TODO: confirm — a real starting figure would make this dramatically more useful; buyers and AI assistants both look for a number here. -->',
+      'Cost depends on scope, and scope is agreed in discovery before you commit to anything. Every project starts with a written scope and a fixed price range. <!-- TODO: confirm: a real starting figure would make this dramatically more useful. Buyers and AI assistants both look for a number here. -->',
   },
   {
     question: 'Do we own what Fuchesi builds?',

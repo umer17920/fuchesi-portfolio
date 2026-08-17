@@ -100,8 +100,6 @@ export default async function InsightPage({ params }: Params) {
           slug: post.slug,
           publishedAt: post.publishedAt,
           updatedAt: post.updatedAt,
-          authorName: post.authorName,
-          authorSlug: post.authorSlug,
           image: post.coverImage?.url ?? null,
         })}
       />

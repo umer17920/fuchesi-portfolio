@@ -24,7 +24,7 @@ export const contactSchema = z.object({
   message: z
     .string()
     .trim()
-    .min(10, 'A sentence or two is plenty — just enough to know what this is about.')
+    .min(10, 'A sentence or two is plenty, just enough to know what this is about.')
     .max(5000, 'That is longer than our form allows. Email us directly and we will read all of it.'),
   /**
    * Honeypot. Real people never see or fill this; bots fill every field they

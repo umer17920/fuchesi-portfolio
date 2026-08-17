@@ -14,7 +14,7 @@ import { site } from '@/lib/site';
 export const metadata: Metadata = {
   title: 'Insights',
   description:
-    'Plain writing on custom software, ERP systems, AI calling agents, and automation — what works, what costs what, and when not to build.',
+    'Plain writing on custom software, ERP systems, AI calling agents, and automation: what works, what costs what, and when not to build.',
   alternates: { canonical: `${site.url}/insights` },
 };
 

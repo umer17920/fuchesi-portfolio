@@ -17,8 +17,6 @@ import { site } from './site';
 export const ORG_ID = `${site.url}/#organization`;
 export const WEBSITE_ID = `${site.url}/#website`;
 
-const personId = (slug: string) => `${site.url}/about#${slug}`;
-
 /**
  * TODO: confirm — areaServed. Deliberately left as worldwide because an earlier
  * commit removed a location reference from the site and I will not re-assert
@@ -37,12 +35,6 @@ export function organizationSchema() {
     url: site.url,
     description: site.description,
     email: site.contact.email,
-    founder: site.founders.map((f) => ({
-      '@type': 'Person',
-      '@id': personId(f.slug),
-      name: f.name,
-      jobTitle: f.role,
-    })),
     ...(site.sameAs.length > 0 ? { sameAs: site.sameAs } : {}),
     contactPoint: {
       '@type': 'ContactPoint',
@@ -86,19 +78,6 @@ export function serviceSchema(service: Service) {
   };
 }
 
-export function personSchema(founder: (typeof site.founders)[number]) {
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'Person',
-    '@id': personId(founder.slug),
-    name: founder.name,
-    jobTitle: founder.role,
-    description: founder.bio.replace(/<!--[\s\S]*?-->/g, '').trim(),
-    worksFor: { '@id': ORG_ID },
-    ...(founder.photo ? { image: `${site.url}${founder.photo}` } : {}),
-  };
-}
-
 export function breadcrumbSchema(trail: { name: string; path: string }[]) {
   return {
     '@context': 'https://schema.org',
@@ -118,8 +97,6 @@ export function articleSchema(article: {
   slug: string;
   publishedAt: string;
   updatedAt?: string | null;
-  authorName?: string | null;
-  authorSlug?: string | null;
   image?: string | null;
 }) {
   return {
@@ -134,9 +111,9 @@ export function articleSchema(article: {
     // visible "Updated" date and the sitemap's lastmod.
     dateModified: article.updatedAt ?? article.publishedAt,
     publisher: { '@id': ORG_ID },
-    author: article.authorSlug
-      ? { '@type': 'Person', '@id': personId(article.authorSlug), name: article.authorName }
-      : { '@id': ORG_ID },
+    // Articles are published under the company rather than a named byline.
+    // Organization is a valid Article.author, so this keeps the schema whole.
+    author: { '@id': ORG_ID },
     ...(article.image ? { image: article.image } : {}),
     mainEntityOfPage: { '@type': 'WebPage', '@id': `${site.url}/insights/${article.slug}` },
   };

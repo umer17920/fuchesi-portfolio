@@ -62,15 +62,15 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: `${site.name} — Custom software, ERP systems, and AI automation`,
-    template: `%s — ${site.name}`,
+    default: `${site.name} | Custom software, ERP systems, and AI automation`,
+    template: `%s | ${site.name}`,
   },
   description: site.description,
   openGraph: {
     type: 'website',
     siteName: site.name,
     url: site.url,
-    title: `${site.name} — Custom software, ERP systems, and AI automation`,
+    title: `${site.name} | Custom software, ERP systems, and AI automation`,
     description: site.shortDescription,
   },
   twitter: { card: 'summary_large_image' },

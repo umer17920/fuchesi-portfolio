@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import Image from 'next/image';
 import { ContactCta } from '@/components/home/ContactCta';
 import { Reveal } from '@/components/motion/Reveal';
 import { Container } from '@/components/primitives/Container';
@@ -8,7 +7,7 @@ import { Eyebrow } from '@/components/primitives/Eyebrow';
 import { Section } from '@/components/primitives/Section';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { projects } from '@/lib/projects';
-import { breadcrumbSchema, personSchema } from '@/lib/schema';
+import { breadcrumbSchema } from '@/lib/schema';
 import { site } from '@/lib/site';
 
 export const metadata: Metadata = {
@@ -51,9 +50,10 @@ export default function AboutPage() {
                 <p className="max-w-[62ch] text-body-l text-ink">{site.description}</p>
                 <p className="mt-6 max-w-[62ch] text-body-m text-muted">
                   We have delivered {projects.length} projects across commerce, healthcare,
-                  property, finance, recruitment, education, and legal services — public products,
-                  internal systems, and the automation that sits between them. Every project starts
-                  with discovery, and every one can end with us telling you that you do not need it.
+                  property, finance, recruitment, education, and legal services. Some are public
+                  products, some are internal systems, and a good deal of it is the automation that
+                  sits between the two. Every project starts with discovery, and every one can end
+                  with us telling you that you do not need it.
                 </p>
               </div>
             </div>
@@ -61,57 +61,37 @@ export default function AboutPage() {
         </Container>
       </Section>
 
+      {/*
+        How we work.
+
+        This replaced two named founder profiles. It answers the questions
+        buyers ask before they ask about technology (who touches the work, what
+        happens before a quote, what you own, how fast you hear back), and each
+        claim is stated elsewhere on the site already, so nothing here is a new
+        promise the company has to keep.
+      */}
       <Section tone="raised">
         <Container>
           <Reveal>
-            <Eyebrow>The team</Eyebrow>
-            <h2 className="mt-6 max-w-2xl font-display text-display-m">Who you work with.</h2>
+            <Eyebrow>How we work</Eyebrow>
+            <h2 className="mt-6 max-w-2xl font-display text-display-m">What to expect.</h2>
             <p className="mt-6 max-w-[62ch] text-body-m text-muted">
-              Fuchesi is small on purpose. The people who scope your project are the people who
-              build it — there is no handover to a team you have never met.
+              Four things hold true on every project, whatever it is we end up building.
             </p>
           </Reveal>
 
-          <ul className="mt-16 grid gap-12 sm:grid-cols-2">
-            {site.founders.map((founder, i) => (
-              <li key={founder.slug}>
+          <ul className="mt-16 grid gap-x-12 gap-y-12 sm:grid-cols-2">
+            {site.howWeWork.map((item, i) => (
+              <li key={item.title}>
                 <Reveal delay={i * 80}>
-                  <article id={founder.slug}>
-                    {founder.photo ? (
-                      <Image
-                        src={founder.photo}
-                        alt={`${founder.name}, ${founder.role} of ${site.name}`}
-                        width={640}
-                        height={800}
-                        sizes="(max-width: 640px) 100vw, 50vw"
-                        className="aspect-[4/5] w-full rounded-lg border border-hairline object-cover"
-                      />
-                    ) : (
-                      /*
-                        TODO: confirm — no founder photographs were supplied, so
-                        this is an elegant placeholder rather than a stock face.
-                        Needed: one portrait each for Farees Fatima and
-                        M. Umer Saleem, ideally 4:5, min 640×800. Drop them in
-                        public/team/ and set `photo` in lib/site.ts.
-                      */
-                      <div className="flex aspect-[4/5] w-full items-center justify-center rounded-lg border border-hairline bg-paper">
-                        <span className="font-display text-[4rem] text-ink/15">
-                          {founder.name
-                            .split(' ')
-                            .map((w) => w[0])
-                            .join('')
-                            .slice(0, 2)}
-                        </span>
-                      </div>
-                    )}
-
-                    <div className="mt-6 flex items-center gap-2.5">
-                      <Emblem size={6} />
-                      <span className="text-eyebrow uppercase text-muted">{founder.role}</span>
-                    </div>
-                    <h3 className="mt-3 font-display text-display-s">{founder.name}</h3>
-                    <p className="mt-4 max-w-[52ch] text-body-m text-muted">{clean(founder.bio)}</p>
-                  </article>
+                  <div className="flex items-center gap-2.5">
+                    <Emblem size={6} />
+                    <span className="text-eyebrow uppercase text-muted">
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
+                  </div>
+                  <h3 className="mt-3 font-display text-display-s">{item.title}</h3>
+                  <p className="mt-4 max-w-[52ch] text-body-m text-muted">{clean(item.body)}</p>
                 </Reveal>
               </li>
             ))}
@@ -121,9 +101,6 @@ export default function AboutPage() {
 
       <ContactCta />
 
-      {site.founders.map((founder) => (
-        <JsonLd key={founder.slug} data={personSchema(founder)} />
-      ))}
       <JsonLd
         data={breadcrumbSchema([
           { name: 'Home', path: '/' },

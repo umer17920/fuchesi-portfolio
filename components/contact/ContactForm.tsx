@@ -196,7 +196,7 @@ export function ContactForm() {
       mode !== 'meeting'
         ? 'We read everything that comes in and reply within one working day. If it is urgent, WhatsApp us on '
         : outcome?.requiresConfirmation
-          ? 'We are holding that time for you. Click the link in the email we just sent to lock it in — if you do not, the slot reopens automatically. If it is urgent, WhatsApp us on '
+          ? 'We are holding that time for you. Click the link in the email we just sent to lock it in, or the slot reopens automatically. If it is urgent, WhatsApp us on '
           : 'It is in the diary and we have emailed you the details. If it is urgent, WhatsApp us on ';
 
     return (
@@ -359,7 +359,7 @@ export function ContactForm() {
               role="status"
               className="rounded-lg border border-hairline bg-paper-raised px-4 py-3 text-body-s"
             >
-              That time was taken while you were filling this in — it is greyed out now. Pick another
+              That time was taken while you were filling this in, so it is greyed out now. Pick another
               and you are done.
             </p>
           )}
@@ -382,7 +382,7 @@ export function ContactForm() {
             placeholder={
               meeting
                 ? 'A line on what you would like to cover. Optional.'
-                : 'Describe the problem in your own words. You do not need to know what the solution is — that is our job.'
+                : 'Describe the problem in your own words. You do not need to know what the solution is. That is our job.'
             }
             className={`${inputClass} resize-y`}
           />
@@ -405,7 +405,7 @@ export function ContactForm() {
 
       {status === 'error' && (
         <p role="alert" className="rounded-lg border border-hairline bg-paper-raised p-4 text-body-s">
-          That did not send. It is us, not you — try again, or email{' '}
+          That did not send. It is us, not you. Try again, or email{' '}
           <a href={`mailto:${site.contact.email}`} className="underline underline-offset-4">
             {site.contact.email}
           </a>{' '}
@@ -415,7 +415,7 @@ export function ContactForm() {
 
       {status === 'notConfigured' && (
         <p role="alert" className="rounded-lg border border-hairline bg-paper-raised p-4 text-body-s">
-          Our form is not connected yet — that is our fault, not yours. Please email{' '}
+          Our form is not connected yet, and that is our fault rather than yours. Please email{' '}
           <a href={`mailto:${site.contact.email}`} className="underline underline-offset-4">
             {site.contact.email}
           </a>{' '}

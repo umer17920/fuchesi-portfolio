@@ -30,12 +30,12 @@ const OUTCOMES: Record<string, Outcome> = {
   },
   cancelled: {
     heading: 'That time is released.',
-    body: 'The slot is back on the calendar for someone else. No hard feelings — book another whenever it suits you.',
+    body: 'The slot is back on the calendar for someone else. No hard feelings. Book another whenever it suits you.',
     tone: 'neutral',
   },
   expired: {
     heading: 'That hold expired.',
-    body: 'We only hold a time for a short window before releasing it, and this one has gone back into the pool. It may well still be free — pick it again and it is yours.',
+    body: 'We only hold a time for a short window before releasing it, and this one has gone back into the pool. It may well still be free, so pick it again and it is yours.',
     tone: 'neutral',
   },
   invalid: {

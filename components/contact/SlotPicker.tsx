@@ -141,7 +141,7 @@ export function SlotPicker({
   if (openCount === 0) {
     return (
       <p className="rounded-lg border border-hairline bg-paper-raised px-4 py-4 text-body-s text-muted">
-        Fully booked on this date. Try another day — most dates have plenty of room.
+        Fully booked on this date. Try another day, as most have plenty of room.
       </p>
     );
   }

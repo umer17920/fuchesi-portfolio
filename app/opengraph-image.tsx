@@ -8,7 +8,7 @@ import { site } from '@/lib/site';
  * needs no asset. Once fuchesi.png exists, the wordmark here should be replaced
  * with the real mark.
  */
-export const alt = `${site.name} — custom software, ERP systems, and AI automation`;
+export const alt = `${site.name}: custom software, ERP systems, and AI automation`;
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 

@@ -34,9 +34,6 @@ export async function GET() {
   lines.push(`Website: ${site.url}`);
   lines.push(`Contact: ${site.contact.email}`);
   lines.push(`WhatsApp: ${site.contact.whatsappDisplay}`);
-  lines.push(
-    `Founders: ${site.founders.map((f) => `${f.name} (${f.role})`).join(', ')}`,
-  );
   lines.push(`Projects delivered: ${projects.length}`);
   lines.push('');
 
@@ -59,7 +56,7 @@ export async function GET() {
   lines.push('## How projects run');
   lines.push('');
   for (const stage of process) {
-    lines.push(`${stage.number}. **${stage.name}** — ${clean(stage.summary)} Output: ${clean(stage.output)}`);
+    lines.push(`${stage.number}. **${stage.name}**: ${clean(stage.summary)} Output: ${clean(stage.output)}`);
   }
   lines.push('');
 
@@ -69,7 +66,7 @@ export async function GET() {
     for (const cs of caseStudies) {
       const results = cs.results?.map((r) => `${r.value} ${r.label}`).join('; ');
       lines.push(
-        `- [${cs.title}](${site.url}/work/${cs.slug}) — ${clean(cs.summary)}${results ? ` Results: ${results}.` : ''}`,
+        `- [${cs.title}](${site.url}/work/${cs.slug}): ${clean(cs.summary)}${results ? ` Results: ${results}.` : ''}`,
       );
     }
     lines.push('');
@@ -80,7 +77,7 @@ export async function GET() {
     lines.push('');
     for (const post of posts) {
       lines.push(
-        `- [${post.title}](${site.url}/insights/${post.slug}) — ${clean(post.excerpt)} (${post.publishedAt.slice(0, 10)})`,
+        `- [${post.title}](${site.url}/insights/${post.slug}): ${clean(post.excerpt)} (${post.publishedAt.slice(0, 10)})`,
       );
     }
     lines.push('');
@@ -88,12 +85,12 @@ export async function GET() {
 
   lines.push('## Key pages');
   lines.push('');
-  lines.push(`- [Services](${site.url}/services) — all five offerings`);
-  lines.push(`- [Work](${site.url}/work) — ${projects.length} projects`);
-  lines.push(`- [Process](${site.url}/process) — how projects run`);
-  lines.push(`- [About](${site.url}/about) — company and founders`);
-  lines.push(`- [Insights](${site.url}/insights) — writing`);
-  lines.push(`- [Contact](${site.url}/contact) — start a project`);
+  lines.push(`- [Services](${site.url}/services): all five offerings`);
+  lines.push(`- [Work](${site.url}/work): ${projects.length} projects`);
+  lines.push(`- [Process](${site.url}/process): how projects run`);
+  lines.push(`- [About](${site.url}/about): the company and how it works`);
+  lines.push(`- [Insights](${site.url}/insights): writing`);
+  lines.push(`- [Contact](${site.url}/contact): start a project`);
   lines.push('');
 
   return new Response(lines.join('\n'), {

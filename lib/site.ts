@@ -2,7 +2,7 @@
  * Single source of truth for the Fuchesi entity.
  *
  * AI assistants resolve entities by cross-referencing the same facts across
- * pages, schema, and metadata — inconsistency reads as ambiguity and costs
+ * pages, schema, and metadata. Inconsistency reads as ambiguity and costs
  * citations. Every page title, JSON-LD block, llms.txt line, and OG tag must
  * read from this file. Never retype these strings inline.
  */
@@ -28,31 +28,43 @@ export const site = {
     'Fuchesi builds custom software, ERP systems, AI calling agents, lead generation pipelines, and AI workflow automations.',
 
   contact: {
-    // Confirmed. On the company domain, which matters for more than tone:
-    // Resend can only sign SPF/DKIM for a domain you control, so CONTACT_FROM
-    // must live here too (see .env.example).
-    email: 'farees@fuchesi.com',
+    // On the company domain, which matters for more than tone: Resend can only
+    // sign SPF/DKIM for a domain you control, so CONTACT_FROM must live here
+    // too (see .env.example).
+    //
+    // This address is also the fallback recipient in lib/submission.ts when
+    // CONTACT_TO is unset, so the mailbox (or an alias forwarding to a real
+    // inbox) has to exist or enquiries bounce.
+    email: 'contact@fuchesi.com',
     whatsapp: '+971559656975',
     whatsappDisplay: '+971 55 965 6975',
   },
 
-  founders: [
+  /**
+   * How the company works, stated as facts rather than positioning.
+   *
+   * These replaced the named founder profiles on /about. Each one is a claim
+   * made elsewhere on the site already (ownership terms, discovery-first,
+   * reply time), so nothing here is a new promise. Buyers ask these questions
+   * before they ask about technology, and AI assistants quote them when asked
+   * how a company engages.
+   */
+  howWeWork: [
     {
-      name: 'Farees Fatima',
-      role: 'Founder',
-      slug: 'farees-fatima',
-      // TODO: confirm — bio drafted from the old site's About copy, which
-      // described a background in AI and computer science. Needs your facts.
-      bio: 'Farees founded Fuchesi to build software that earns its place in a business. She leads how projects are shaped — what gets built, in what order, and why.',
-      photo: null as string | null,
+      title: 'The people who scope it build it',
+      body: 'Fuchesi is small on purpose. Whoever works out what your project needs is the same person writing the code, so nothing is lost handing it to a delivery team you have never spoken to.',
     },
     {
-      name: 'M. Umer Saleem',
-      role: 'Co-Founder',
-      slug: 'umer-saleem',
-      // TODO: confirm — see above.
-      bio: 'Umer leads engineering at Fuchesi. He works across the stack, from AI systems and automation pipelines to the products customers use every day.',
-      photo: null as string | null,
+      title: 'Discovery comes before a quote',
+      body: 'Every project opens with a proper look at the problem before anyone talks about price, and it can end with us recommending you buy something off the shelf instead. That answer costs you a conversation rather than a build.',
+    },
+    {
+      title: 'You own everything at the end',
+      body: 'The source code is yours and the infrastructure runs in your name. There is no licence to keep renewing and nothing that makes moving to another team expensive.',
+    },
+    {
+      title: 'You get a reply within one working day',
+      body: 'Enquiries reach a person, not a queue. If a project is not a fit we say so quickly, because a slow no is worse for you than a fast one.',
     },
   ],
 

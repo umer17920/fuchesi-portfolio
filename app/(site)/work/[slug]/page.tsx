@@ -36,7 +36,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
     description: study.summary,
     alternates: { canonical: url },
     openGraph: {
-      title: `${study.title} — ${site.name}`,
+      title: `${study.title} | ${site.name}`,
       description: study.summary,
       url,
       type: 'article',
@@ -56,7 +56,7 @@ export default async function CaseStudyPage({ params }: Params) {
   const shot = getShot(slug);
   const liveUrl = project?.url && isLinkable(slug) ? project.url : null;
 
-  const cover = study.coverImage ?? (shot ? { url: shot.src, alt: `${study.title} — the live site` } : null);
+  const cover = study.coverImage ?? (shot ? { url: shot.src, alt: `${study.title}, the live site` } : null);
   const relatedServices = services.filter((s) => study.services?.includes(s.slug));
 
   return (
@@ -104,7 +104,7 @@ export default async function CaseStudyPage({ params }: Params) {
         <Container width="wide" className="mt-12">
           <Image
             src={cover.url}
-            alt={cover.alt ?? `${study.title} — project imagery`}
+            alt={cover.alt ?? `${study.title}, project imagery`}
             width={1600}
             height={1000}
             priority

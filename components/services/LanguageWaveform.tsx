@@ -34,7 +34,7 @@ export function LanguageWaveform() {
             <em className="italic">customer’s language.</em>
           </h2>
           <p className="mx-auto mt-8 max-w-xl text-body-m text-on-emphasis/60">
-            Agents hold the call in the language the caller uses — and switch mid-conversation when
+            Agents hold the call in the language the caller uses, and switch mid-conversation when
             they do.
           </p>
         </div>
@@ -74,7 +74,7 @@ export function LanguageWaveform() {
         </ul>
 
         <p className="mt-10 text-center text-body-s text-on-emphasis/50">
-          Need one that is not listed? Ask — the list is what we have built, not the limit.
+          Need one that is not listed? Ask. The list is what we have built, not the limit.
         </p>
       </Container>
     </Section>

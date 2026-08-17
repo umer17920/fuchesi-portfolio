@@ -29,7 +29,7 @@ export function ProjectCard({ project, index, priority = false, caseStudyHref }:
     <div className="relative aspect-[16/10] overflow-hidden border-b border-hairline bg-paper-raised">
       <Image
         src={shot.src}
-        alt={`${project.name} — screenshot of the live site`}
+        alt={`${project.name}, screenshot of the live site`}
         width={shot.width}
         height={shot.height}
         // Explicit sizes keeps the browser from downloading a 1600px image for

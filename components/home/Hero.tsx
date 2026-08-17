@@ -115,7 +115,7 @@ export function Hero() {
             style={{ color: 'var(--color-on-obsidian-muted)' }}
           >
             Fuchesi builds custom software, ERP systems, AI calling agents, lead generation
-            pipelines, and workflow automations — for businesses that have outgrown the tools they
+            pipelines, and workflow automations for businesses that have outgrown the tools they
             started with.
           </p>
 

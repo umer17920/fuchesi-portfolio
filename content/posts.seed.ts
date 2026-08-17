@@ -35,8 +35,8 @@ export const seedPosts: Post[] = [
       'Custom ERP pricing is quoted per module, not as one number. Here is what drives the figure, and when an off-the-shelf product is the cheaper answer.',
     publishedAt: '2026-06-18',
     updatedAt: null,
-    authorName: 'M. Umer Saleem',
-    authorSlug: 'umer-saleem',
+    authorName: 'Fuchesi',
+    authorSlug: null,
     coverImage: null,
     body: [
       p(
@@ -44,7 +44,7 @@ export const seedPosts: Post[] = [
       ),
       h2('It is priced per module, not as a system'),
       p(
-        'A custom ERP is not one purchase. It is a sequence of them. You start with the part of the business causing the most pain — usually stock, orders, or job scheduling — and that first module is priced like a focused internal tool, because that is what it is. Each later module is quoted when you decide to build it.',
+        'A custom ERP is not one purchase. It is a sequence of them. You start with whatever is causing the most pain, usually stock, orders, or job scheduling, and that first module gets priced like a focused internal tool, because that is what it is. Each later module is quoted when you decide to build it.',
       ),
       p(
         'This matters for cash flow as much as for risk. You are never writing one large cheque against a system you have not seen.',
@@ -54,7 +54,7 @@ export const seedPosts: Post[] = [
         'How unusual your process is. If your operation looks like every other operation in your sector, you are paying us to rebuild something you could have configured. If the thing that makes you competitive is also the thing your current tools handle worst, that is where custom earns its cost.',
       ),
       p(
-        'How many systems it has to talk to. Integration is usually cheaper than replacement, but every integration is real work — and the older the system on the other side, the more of it there is.',
+        'How many systems it has to talk to. Integration is usually cheaper than replacement, but every integration is real work, and the older the system on the other side, the more of it there is.',
       ),
       p(
         'How much of your data needs moving, and what state it is in. Migration is planned in discovery rather than discovered in month three, and messy data is a cost whether or not you address it.',
@@ -73,8 +73,8 @@ export const seedPosts: Post[] = [
       'AI calling agents handle real phone conversations in the caller’s language. They are good at some jobs, bad at others, and the difference matters more than the demo suggests.',
     publishedAt: '2026-06-30',
     updatedAt: null,
-    authorName: 'Farees Fatima',
-    authorSlug: 'farees-fatima',
+    authorName: 'Fuchesi',
+    authorSlug: null,
     coverImage: null,
     body: [
       p(
@@ -91,14 +91,14 @@ export const seedPosts: Post[] = [
         'Booking, confirming, and chasing appointments. Bounded task, clear success condition, no judgment required.',
       ),
       p(
-        'Speaking the caller’s language. An agent can hold the conversation in English, Arabic, Urdu, or Hindi, and switch mid-call when the caller does — which in some markets is simply how people talk.',
+        'Speaking the caller’s language. An agent can hold the conversation in English, Arabic, Urdu, or Hindi, and switch mid-call when the caller does. In some markets that is just how people talk.',
       ),
       h2('What they are bad at'),
       p(
         'Anything where being wrong is expensive and the rule is unclear. If you cannot write down how the decision gets made, an agent should not be making it.',
       ),
       p(
-        'Being the last line. An agent that cannot hand off gracefully is worse than a voicemail, because it wastes the caller’s time before failing them. Knowing when to transfer — on request, on frustration, on anything outside its remit — is most of the design work, not an afterthought.',
+        'Being the last line. An agent that cannot hand off gracefully is worse than a voicemail, because it wastes the caller’s time before failing them. Knowing when to transfer is most of the design work, not an afterthought: on request, on frustration, on anything outside its remit.',
       ),
       h2('Say that it is an AI'),
       p(
@@ -114,12 +114,12 @@ export const seedPosts: Post[] = [
       'Discovery exists to work out whether the software should be built at all. Sometimes the answer is no, and saying so early is the whole point.',
     publishedAt: '2026-07-09',
     updatedAt: null,
-    authorName: 'Farees Fatima',
-    authorSlug: 'farees-fatima',
+    authorName: 'Fuchesi',
+    authorSlug: null,
     coverImage: null,
     body: [
       p(
-        'Every project we take on starts with a conversation about whether it should exist. Not as a rhetorical move — we have ended discovery by recommending a £30-a-month product and sending no invoice.',
+        'Every project we take on starts with a conversation about whether it should exist. That is not a rhetorical move. We have ended discovery by recommending a £30-a-month product and sending no invoice.',
       ),
       h2('Why that is not against our interests'),
       p(
@@ -127,14 +127,14 @@ export const seedPosts: Post[] = [
       ),
       h2('What we are actually looking for'),
       p(
-        'Whether the pain is real and measurable, or a frustration that would survive the rebuild. Whether the process you describe is the process that happens — those are different documents in most businesses, and the gap between them is where projects fail.',
+        'Whether the pain is real and measurable, or a frustration that would survive the rebuild. Whether the process you describe is the process that happens. In most businesses those are two different documents, and the gap between them is where projects fail.',
       ),
       p(
         'Whether an existing product covers eighty per cent of it. If it does, buy the product and spend the difference on the twenty per cent that is actually yours.',
       ),
       h2('What you get either way'),
       p(
-        'A written scope, a fixed price range, and a clear recommendation — including the recommendation not to proceed. It is a cheaper conversation than the alternative, and you can have it before committing to anything.',
+        'A written scope, a fixed price range, and a clear recommendation, up to and including the recommendation not to proceed. It is a cheaper conversation than the alternative, and you can have it before committing to anything.',
       ),
     ],
   },
