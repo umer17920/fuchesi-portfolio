@@ -66,15 +66,40 @@ export const metadata: Metadata = {
     template: `%s | ${site.name}`,
   },
   description: site.description,
+  // The home page is the canonical root. Inner pages set their own; without a
+  // default here, any URL reached with a tracking query string can be indexed
+  // as a separate page competing with the original.
+  alternates: {
+    canonical: '/',
+    types: { 'application/rss+xml': `${site.url}/feed.xml` },
+  },
   openGraph: {
     type: 'website',
     siteName: site.name,
     url: site.url,
     title: `${site.name} | Custom software, ERP systems, and AI automation`,
     description: site.shortDescription,
+    locale: 'en_GB',
   },
-  twitter: { card: 'summary_large_image' },
-  robots: { index: true, follow: true },
+  twitter: {
+    card: 'summary_large_image',
+    title: `${site.name} | Custom software, ERP systems, and AI automation`,
+    description: site.shortDescription,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    // Let search engines show full-length previews and thumbnails. The defaults
+    // are conservative and truncate snippets, which is exactly the text an AI
+    // summary is built from.
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-snippet': -1,
+      'max-image-preview': 'large',
+      'max-video-preview': -1,
+    },
+  },
 };
 
 /**

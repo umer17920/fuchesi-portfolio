@@ -27,7 +27,120 @@ const h2 = (text: string) => ({
   children: [{ _type: 'span' as const, text }],
 });
 
+/**
+ * A paragraph containing one internal link.
+ *
+ * Portable Text puts links in `markDefs` and references them by key from the
+ * span, which is the shape Sanity emits and components/shared/Prose.tsx already
+ * renders. Writing it by hand here keeps seed posts and CMS posts on one code
+ * path.
+ *
+ * Internal links from articles to service pages are the part of SEO this site
+ * can actually control: they pass authority to the pages meant to rank and they
+ * give an assistant a route from a question to the offering that answers it.
+ */
+const linked = (before: string, text: string, href: string, after: string) => ({
+  _type: 'block' as const,
+  style: 'normal' as const,
+  markDefs: [{ _key: 'l0', _type: 'link' as const, href }],
+  children: [
+    { _type: 'span' as const, text: before },
+    { _type: 'span' as const, text, marks: ['l0'] },
+    { _type: 'span' as const, text: after },
+  ],
+});
+
+const bullets = (items: string[]) =>
+  items.map((text) => ({
+    _type: 'block' as const,
+    style: 'normal' as const,
+    listItem: 'bullet' as const,
+    level: 1,
+    children: [{ _type: 'span' as const, text }],
+  }));
+
 export const seedPosts: Post[] = [
+  {
+    slug: 'which-tasks-are-worth-automating',
+    title: 'How to tell if a task is worth automating',
+    excerpt:
+      'A four-question test for deciding whether a repetitive task should be automated, left alone, or fixed at the process level first. Most tasks fail on the second question.',
+    publishedAt: '2026-08-04',
+    updatedAt: null,
+    authorName: 'Fuchesi',
+    authorSlug: null,
+    coverImage: null,
+    body: [
+      p(
+        'Most automation projects that go wrong were not badly built. They automated something that should not have been automated, and the build was the last place anyone would have caught it.',
+      ),
+      p(
+        'Here is the test we run in discovery, in the order we run it. A task has to pass all four. Most fail on the second.',
+      ),
+
+      h2('1. Does it happen often enough to matter?'),
+      p(
+        'Count the actual instances over a month, not the ones that stick in your memory. A task that stings every time but happens twice a quarter is a bad candidate, because the annoyance is vivid while the hours are trivial.',
+      ),
+      p(
+        'The number that matters is total hours per month, not minutes per instance. Ten minutes a day is a working week a year. Two hours once a month is not.',
+      ),
+
+      h2('2. Is the rule writable?'),
+      p(
+        'Ask whoever does the task to explain the decision to you as if you were starting on Monday. If they can, the rule is writable and a system can hold it. If the explanation keeps arriving at "you get a feel for it", you have found judgment, not process.',
+      ),
+      p(
+        'This is the question most tasks fail, and they fail it quietly. People describe their work as more rule-based than it is, because the exceptions are handled so automatically that they stop registering as decisions. Watch the work rather than asking about it and the exceptions show up fast.',
+      ),
+      p(
+        'Failing this question is not a dead end. It usually means the automation should handle the ninety per cent that is rule-based and route the rest to a person, rather than trying to swallow the whole task.',
+      ),
+
+      h2('3. Is the input stable enough to depend on?'),
+      p(
+        'Automation reads something: a form, an email, an invoice, a spreadsheet, a message from another system. The question is whether that input holds its shape.',
+      ),
+      p(
+        'A supplier who sends the same PDF layout every month is stable. A supplier who redesigns their invoice whenever their template changes is not, and an automation built on that will break silently and be trusted for weeks after it stopped working. That is worse than never having built it.',
+      ),
+      p(
+        'Where the input is unstable, the fix is usually upstream. Getting the supplier onto a consistent format is cheaper than building software clever enough to cope with an inconsistent one.',
+      ),
+
+      h2('4. What happens when it gets it wrong?'),
+      p(
+        'Not whether it will. It will. The question is what the wrong answer costs and who notices.',
+      ),
+      p('Sort the failure into one of three buckets:'),
+      ...bullets([
+        'Visible and cheap. A misfiled document that someone spots and moves. Automate freely.',
+        'Visible and expensive. A wrong invoice that a customer receives. Automate with an approval step before anything leaves the building.',
+        'Invisible and expensive. A quietly mis-scored lead that nobody ever audits. This is the dangerous one, and it needs logging and sampling before it needs automating.',
+      ]),
+      p(
+        'The third bucket is where automation earns its bad reputation. The system appears to work, the numbers drift, and the cause surfaces two quarters later.',
+      ),
+
+      h2('The test in one line'),
+      p(
+        'Automate work that happens often, follows a rule you can write down, reads something predictable, and fails in a way somebody notices. Change the process first when it fails on stability, and design a handoff when it fails on judgment.',
+      ),
+      linked(
+        'That handoff design is most of the work on a real project, which is why we treat it as the deliverable rather than an afterthought. There is more on how we scope it on the ',
+        'AI workflow automation',
+        '/services/ai-workflow-automation',
+        ' page.',
+      ),
+      linked(
+        'It is also why every engagement opens with discovery instead of a quote: the four questions above are answered by watching how the work actually happens, not by reading a requirements document. Our ',
+        'process',
+        '/process',
+        ' page sets out what each stage produces.',
+      ),
+    ],
+  },
+
   {
     slug: 'what-a-custom-erp-actually-costs',
     title: 'What a custom ERP actually costs',

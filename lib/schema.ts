@@ -1,5 +1,5 @@
 import { languageNames } from './languages';
-import type { Service } from './services';
+import { services, type Service } from './services';
 import { site } from './site';
 
 /**
@@ -35,6 +35,44 @@ export function organizationSchema() {
     url: site.url,
     description: site.description,
     email: site.contact.email,
+    /*
+     * logo is what Google reads for the mark beside the company in search
+     * results and any knowledge panel. It has to be a URL it can fetch, so it
+     * points at the App Router icon route rather than an inline data URI.
+     * `image` is the generic fallback for consumers that ignore `logo`.
+     */
+    logo: {
+      '@type': 'ImageObject',
+      url: `${site.url}/icon.png`,
+      width: 512,
+      height: 512,
+    },
+    image: `${site.url}/icon.png`,
+    /*
+     * The languages the company can actually do business in. This is the same
+     * list the calling-agent pages advertise, so an assistant asked "can they
+     * handle calls in Arabic" finds the claim in the entity as well as the copy.
+     */
+    knowsLanguage: languageNames,
+    /*
+     * The five offerings as a catalogue. Services already have their own Service
+     * nodes on their own pages; this ties them to the organisation in one place
+     * so an assistant reading only the home page still learns the full range.
+     */
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: `${site.name} services`,
+      itemListElement: services.map((service) => ({
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          '@id': `${site.url}/services/${service.slug}#service`,
+          name: service.name,
+          serviceType: service.serviceType,
+          url: `${site.url}/services/${service.slug}`,
+        },
+      })),
+    },
     ...(site.sameAs.length > 0 ? { sameAs: site.sameAs } : {}),
     contactPoint: {
       '@type': 'ContactPoint',
@@ -44,6 +82,33 @@ export function organizationSchema() {
       areaServed: AREA_SERVED,
       availableLanguage: languageNames,
     },
+  };
+}
+
+/**
+ * An ordered list of pages.
+ *
+ * Index pages (services, work, insights) otherwise describe themselves only in
+ * prose. Emitting the members as a list gives a crawler the set explicitly,
+ * which is what lets an assistant answer "what services does Fuchesi offer"
+ * without having to parse the layout.
+ */
+export function itemListSchema(
+  name: string,
+  items: { name: string; path: string; description?: string }[],
+) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name,
+    numberOfItems: items.length,
+    itemListElement: items.map((item, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: item.name,
+      url: `${site.url}${item.path}`,
+      ...(item.description ? { description: item.description } : {}),
+    })),
   };
 }
 
@@ -98,6 +163,9 @@ export function articleSchema(article: {
   publishedAt: string;
   updatedAt?: string | null;
   image?: string | null;
+  /** Plain-text body, used only to derive wordCount. */
+  text?: string | null;
+  section?: string | null;
 }) {
   return {
     '@context': 'https://schema.org',
@@ -114,6 +182,14 @@ export function articleSchema(article: {
     // Articles are published under the company rather than a named byline.
     // Organization is a valid Article.author, so this keeps the schema whole.
     author: { '@id': ORG_ID },
+    inLanguage: 'en-GB',
+    isPartOf: { '@id': WEBSITE_ID },
+    ...(article.section ? { articleSection: article.section } : {}),
+    // Length is a genuine relevance signal for assistants choosing between
+    // sources. Counted from the real body rather than estimated.
+    ...(article.text
+      ? { wordCount: article.text.trim().split(/\s+/).filter(Boolean).length }
+      : {}),
     ...(article.image ? { image: article.image } : {}),
     mainEntityOfPage: { '@type': 'WebPage', '@id': `${site.url}/insights/${article.slug}` },
   };

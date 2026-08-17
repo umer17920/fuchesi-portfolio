@@ -6,7 +6,7 @@ import { Container } from '@/components/primitives/Container';
 import { Eyebrow } from '@/components/primitives/Eyebrow';
 import { Section } from '@/components/primitives/Section';
 import { JsonLd } from '@/components/seo/JsonLd';
-import { breadcrumbSchema, serviceSchema } from '@/lib/schema';
+import { breadcrumbSchema, itemListSchema, serviceSchema } from '@/lib/schema';
 import { services } from '@/lib/services';
 import { site } from '@/lib/site';
 
@@ -78,6 +78,16 @@ export default function ServicesPage() {
       {services.map((service) => (
         <JsonLd key={service.slug} data={serviceSchema(service)} />
       ))}
+      <JsonLd
+        data={itemListSchema(
+          `${site.name} services`,
+          services.map((service) => ({
+            name: service.name,
+            path: `/services/${service.slug}`,
+            description: service.summary,
+          })),
+        )}
+      />
       <JsonLd
         data={breadcrumbSchema([
           { name: 'Home', path: '/' },

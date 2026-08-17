@@ -92,6 +92,11 @@ export async function GET() {
   lines.push(`- [Insights](${site.url}/insights): writing`);
   lines.push(`- [Contact](${site.url}/contact): start a project`);
   lines.push('');
+  lines.push('## Machine-readable');
+  lines.push('');
+  lines.push(`- RSS feed: ${site.url}/feed.xml`);
+  lines.push(`- Sitemap: ${site.url}/sitemap.xml`);
+  lines.push('');
 
   return new Response(lines.join('\n'), {
     headers: {

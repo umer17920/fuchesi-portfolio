@@ -8,7 +8,7 @@ import { Section } from '@/components/primitives/Section';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { PublishedMeta } from '@/components/shared/PublishedMeta';
 import { getPosts } from '@/lib/posts';
-import { breadcrumbSchema } from '@/lib/schema';
+import { breadcrumbSchema, itemListSchema } from '@/lib/schema';
 import { site } from '@/lib/site';
 
 export const metadata: Metadata = {
@@ -71,6 +71,16 @@ export default async function InsightsPage() {
 
       <ContactCta />
 
+      <JsonLd
+        data={itemListSchema(
+          `${site.name} insights`,
+          posts.map((post) => ({
+            name: post.title,
+            path: `/insights/${post.slug}`,
+            description: post.excerpt,
+          })),
+        )}
+      />
       <JsonLd
         data={breadcrumbSchema([
           { name: 'Home', path: '/' },

@@ -101,6 +101,20 @@ export default async function InsightPage({ params }: Params) {
           publishedAt: post.publishedAt,
           updatedAt: post.updatedAt,
           image: post.coverImage?.url ?? null,
+          // Flattened body text, used only to derive a real wordCount rather
+          // than an estimate.
+          text: post.body
+            .flatMap((block) =>
+              'children' in block && Array.isArray(block.children)
+                ? block.children.map((child) =>
+                    typeof child === 'object' && child && 'text' in child
+                      ? String((child as { text?: unknown }).text ?? '')
+                      : '',
+                  )
+                : [],
+            )
+            .join(' '),
+          section: 'Insights',
         })}
       />
       <JsonLd
