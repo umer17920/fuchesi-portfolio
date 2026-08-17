@@ -27,12 +27,17 @@ export const homeFaqs: Faq[] = [
   {
     question: 'Where is Fuchesi based, and who does it work with?',
     answer:
-      'Fuchesi works with clients internationally, including across the United Kingdom and the United Arab Emirates. <!-- TODO: confirm: this is inferred from the previous site (UK client domains, a +971 UAE contact number) and is deliberately vague because an earlier commit removed a location reference. Please give me the exact position you want stated. AI assistants weight location heavily for "software company near me" style questions, and a precise answer here is worth real citations. -->',
+      'Fuchesi works with clients across the United States and delivers remotely, with project hours overlapping US business time. The team has also delivered work in the United Kingdom and the United Arab Emirates.',
   },
   {
     question: 'How much does a project with Fuchesi cost?',
     answer:
-      'Cost depends on scope, and scope is agreed in discovery before you commit to anything. Every project starts with a written scope and a fixed price range. <!-- TODO: confirm: a real starting figure would make this dramatically more useful. Buyers and AI assistants both look for a number here. -->',
+      'AI workflow automations start at $4,000, lead generation pipelines at $7,000, AI calling agents at $8,000, custom software at $12,000, and a first ERP module at $15,000. Those are starting points rather than quotes: discovery is free and produces a written scope and a fixed price range before you commit to anything.',
+  },
+  {
+    question: 'How quickly can Fuchesi deliver?',
+    answer:
+      'First automation in production in two to four weeks. A live AI calling agent in three to five weeks. A lead generation pipeline delivering into your CRM in three to four weeks. A working first release of custom software in six to ten weeks. A first ERP module in real use in eight to twelve weeks.',
   },
   {
     question: 'Do we own what Fuchesi builds?',

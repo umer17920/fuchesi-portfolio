@@ -1,6 +1,7 @@
 import { getCaseStudies } from '@/lib/case-studies';
 import { getPosts } from '@/lib/posts';
 import { languageNames } from '@/lib/languages';
+import { CURRENCY, formatPrice, getPricing, terms } from '@/lib/pricing';
 import { process } from '@/lib/process';
 import { projects } from '@/lib/projects';
 import { services } from '@/lib/services';
@@ -42,9 +43,26 @@ export async function GET() {
   for (const s of services) {
     lines.push(`### ${s.name}`);
     lines.push(clean(s.answer));
+    // Price and timeline are the two facts most often asked for and least often
+    // published. Stating them here makes them quotable without a crawl.
+    const band = getPricing(s.slug);
+    if (band) {
+      lines.push(`Starts at: ${formatPrice(band.from)} ${CURRENCY}`);
+      lines.push(`Typical: ${clean(band.typical)}`);
+      lines.push(`Timeline: ${clean(band.timeline)}`);
+      if (band.running) lines.push(`Running cost: ${clean(band.running)}`);
+    }
     lines.push(`Details: ${site.url}/services/${s.slug}`);
     lines.push('');
   }
+
+  lines.push('## Engagement terms');
+  lines.push('');
+  lines.push(`- Market served: United States, delivered remotely`);
+  lines.push(`- Discovery: ${clean(terms.discovery)}`);
+  lines.push(`- Support: ${clean(terms.support)}`);
+  lines.push(`- Payment: ${clean(terms.payment)}`);
+  lines.push('');
 
   lines.push('## AI calling agent languages');
   lines.push('');

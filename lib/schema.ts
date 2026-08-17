@@ -1,4 +1,5 @@
 import { languageNames } from './languages';
+import { CURRENCY, getPricing } from './pricing';
 import { services, type Service } from './services';
 import { site } from './site';
 
@@ -18,13 +19,18 @@ export const ORG_ID = `${site.url}/#organization`;
 export const WEBSITE_ID = `${site.url}/#website`;
 
 /**
- * TODO: confirm — areaServed. Deliberately left as worldwide because an earlier
- * commit removed a location reference from the site and I will not re-assert
- * one you took out. This is worth settling: areaServed is a strong signal for
- * "software company in <place>" style questions, and "Worldwide" is the weakest
- * possible answer.
+ * The market Fuchesi sells into.
+ *
+ * A named country is a far stronger signal than "Worldwide" for the
+ * "software company in <place>" questions buyers and assistants actually ask.
+ * Emitted as a Country node rather than a bare string so consumers can resolve
+ * it rather than string-match it.
+ *
+ * This describes the market served, not where the company sits. Delivery
+ * remains international; see the location FAQ in lib/faqs.ts, which has to stay
+ * consistent with this.
  */
-const AREA_SERVED = 'Worldwide';
+const AREA_SERVED = { '@type': 'Country', name: 'United States' } as const;
 
 export function organizationSchema() {
   return {
@@ -125,6 +131,8 @@ export function websiteSchema() {
 }
 
 export function serviceSchema(service: Service) {
+  const band = getPricing(service.slug);
+
   return {
     '@context': 'https://schema.org',
     '@type': 'Service',
@@ -137,6 +145,30 @@ export function serviceSchema(service: Service) {
     provider: { '@id': ORG_ID },
     areaServed: AREA_SERVED,
     url: `${site.url}/services/${service.slug}`,
+    /*
+     * A starting price, as a minimum rather than a fixed one.
+     *
+     * This is the single most citable fact a services page can carry: "how
+     * much does X cost" is the question buyers and assistants ask first, and an
+     * answer with a number in it gets quoted where "depends on scope" does not.
+     * MinPrice is the honest shape, since the real quote comes out of discovery.
+     */
+    ...(band
+      ? {
+          offers: {
+            '@type': 'Offer',
+            priceCurrency: CURRENCY,
+            priceSpecification: {
+              '@type': 'PriceSpecification',
+              priceCurrency: CURRENCY,
+              minPrice: band.from,
+              valueAddedTaxIncluded: false,
+            },
+            availability: 'https://schema.org/InStock',
+            url: `${site.url}/services/${service.slug}`,
+          },
+        }
+      : {}),
     ...(service.slug === 'ai-calling-agents'
       ? { availableLanguage: languageNames }
       : {}),

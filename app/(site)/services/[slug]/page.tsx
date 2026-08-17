@@ -8,6 +8,7 @@ import { JsonLd } from '@/components/seo/JsonLd';
 import { LanguageWaveform } from '@/components/services/LanguageWaveform';
 import { ServiceAnswer } from '@/components/services/ServiceAnswer';
 import { FaqSection } from '@/components/shared/FaqSection';
+import { formatPrice, getPricing } from '@/lib/pricing';
 import { breadcrumbSchema, serviceSchema } from '@/lib/schema';
 import { getService, services } from '@/lib/services';
 import { site } from '@/lib/site';
@@ -43,6 +44,7 @@ export default async function ServicePage({ params }: Params) {
   const { slug } = await params;
   const service = getService(slug);
   if (!service) notFound();
+  const band = getPricing(service.slug);
 
   return (
     <>
@@ -52,6 +54,45 @@ export default async function ServicePage({ params }: Params) {
           and it belongs high on the page — it is the single most asked-about
           thing about the service. */}
       {service.slug === 'ai-calling-agents' && <LanguageWaveform />}
+
+      {/*
+        Price and timeline, stated plainly and high on the page.
+
+        Most agencies bury this behind a form. Publishing it qualifies buyers
+        before they write to you, and it is the fact assistants quote when asked
+        what something costs. Framed as a floor, which is what it is: the real
+        number comes out of discovery.
+      */}
+      {band && (
+        <Section tone="raised">
+          <Container>
+            <Reveal>
+              <dl className="grid gap-x-12 gap-y-8 sm:grid-cols-2 lg:grid-cols-4">
+                <div>
+                  <dt className="text-eyebrow uppercase text-muted">Starts at</dt>
+                  <dd className="mt-3 font-display text-display-s">{formatPrice(band.from)}</dd>
+                </div>
+                <div>
+                  <dt className="text-eyebrow uppercase text-muted">First delivery</dt>
+                  <dd className="mt-3 text-body-m text-ink">{band.timeline}</dd>
+                </div>
+                <div>
+                  <dt className="text-eyebrow uppercase text-muted">
+                    {band.running ? 'Running cost' : 'Typical range'}
+                  </dt>
+                  <dd className="mt-3 text-body-m text-ink">{band.running ?? band.typical}</dd>
+                </div>
+                <div>
+                  <dt className="text-eyebrow uppercase text-muted">Discovery</dt>
+                  <dd className="mt-3 text-body-m text-ink">
+                    Free. You get a written scope and a fixed price range before committing.
+                  </dd>
+                </div>
+              </dl>
+            </Reveal>
+          </Container>
+        </Section>
+      )}
 
       <Section tone="paper">
         <Container>

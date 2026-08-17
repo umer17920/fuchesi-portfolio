@@ -60,12 +60,12 @@ export const services: Service[] = [
       {
         question: 'How much does custom software cost?',
         answer:
-          'Cost depends on scope. The main driver is how much of your process is unique to you, since a focused internal tool costs a small fraction of a full customer-facing platform. We scope the work in discovery and give you a fixed range before you commit to anything. <!-- TODO: confirm: add a real starting figure or typical range if you want this quotable by AI assistants. A concrete number is far more citable than this answer. -->',
+          'Custom software with Fuchesi starts at $12,000, and most first releases land between $18,000 and $45,000. A focused internal tool sits at the lower end; a full customer-facing platform with several user types sits above it. The main driver is how much of your process is genuinely unique to you. Discovery is free and produces a written scope and a fixed range before you commit to anything.',
       },
       {
         question: 'How long does it take to build custom software?',
         answer:
-          'Most projects ship a working first version in weeks rather than months, then grow from there. The timeline is set in discovery once the scope is clear. <!-- TODO: confirm: a specific range such as "6 to 12 weeks to first release" is much stronger here. -->',
+          'Six to ten weeks to a working first release for most projects, then it grows from there. You see something you can click at the end of every cycle rather than waiting for a reveal, so the first usable version arrives well before the last feature does.',
       },
       {
         question: 'Do we own the code Fuchesi writes?',
@@ -107,12 +107,12 @@ export const services: Service[] = [
       {
         question: 'How much does a custom ERP cost?',
         answer:
-          'A custom ERP is priced by module, not as one number. Starting with a single high-pain area keeps the first cost close to that of a focused internal tool, and later modules are quoted as you decide to build them. <!-- TODO: confirm: a real per-module range would make this answer far more useful and quotable. -->',
+          'A custom ERP is priced by module rather than as one number. The first module starts at $15,000, and three modules covering something like stock, orders, and invoicing typically land between $45,000 and $90,000. Later modules are quoted as you decide to build them, so you are never writing one large cheque against a system you have not seen.',
       },
       {
         question: 'How long does it take to implement a custom ERP?',
         answer:
-          'The first module goes into real use well before the full system exists, which is the point of building in modules. Full rollout depends on how many areas of the business are in scope. <!-- TODO: confirm: specific timings per module. -->',
+          'Eight to twelve weeks to the first module in real use. That module is live and earning its place while the next one is being built, which is the point of working this way. Full rollout depends on how many areas of the business are in scope.',
       },
       {
         question: 'Can a custom ERP integrate with our existing tools?',
@@ -174,7 +174,7 @@ export const services: Service[] = [
       {
         question: 'How much does an AI calling agent cost?',
         answer:
-          'There is a build cost to design and train the agent, then a running cost per minute of calls handled. <!-- TODO: confirm: real figures for both would make this the single most citable answer on the site. -->',
+          'A single-workflow agent starts at $8,000 to build. Agents handling several workflows with CRM and calendar integration typically land between $15,000 and $30,000. Running cost is $0.18 to $0.30 per connected minute with telephony included, so a business taking 500 calls a month averaging four minutes would spend roughly $360 to $600 a month on call time. A live agent takes three to five weeks.',
       },
     ],
   },
@@ -211,7 +211,7 @@ export const services: Service[] = [
       {
         question: 'Does this comply with GDPR and data protection rules?',
         answer:
-          'Pipelines are built to work within the rules of the markets you sell into, covering lawful basis, opt-outs, and data retention. <!-- TODO: confirm: worth stating your specific compliance position here. Buyers in the UK and EU ask this first. -->',
+          'Pipelines are built to work within the rules of the markets you sell into, covering lawful basis, opt-outs, and data retention. For US outbound that means CAN-SPAM and state privacy law; for UK and EU prospects it means GDPR and PECR. <!-- TODO: confirm: if you hold any specific certification or a documented DPA, say so here. Buyers ask this early. -->',
       },
       {
         question: 'Will leads land in our existing CRM?',

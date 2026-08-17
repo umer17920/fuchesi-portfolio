@@ -86,6 +86,11 @@ export const metadata: Metadata = {
     title: `${site.name} | Custom software, ERP systems, and AI automation`,
     description: site.shortDescription,
   },
+  // Renders <meta name="google-site-verification"> only once a token exists in
+  // lib/site.ts. Google reads it on the page it is asked to verify.
+  ...(site.googleSiteVerification
+    ? { verification: { google: site.googleSiteVerification } }
+    : {}),
   robots: {
     index: true,
     follow: true,

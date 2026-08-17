@@ -72,6 +72,22 @@ export const site = {
    *  entry added here is emitted as a sameAs in Organization schema, which is
    *  a primary way AI systems disambiguate a company. Worth having. */
   sameAs: [] as string[],
+
+  /**
+   * Google Search Console verification token.
+   *
+   * Paste the value from the "HTML tag" method here and deploy; the meta tag
+   * only renders when this is non-empty, so an empty string ships nothing.
+   *
+   * Deliberately a constant rather than an environment variable. The token is
+   * public by design (it goes into the page source), and Netlify's secret
+   * scanning fails a build when an env var's value appears in the build output,
+   * which is exactly what a verification meta tag does.
+   *
+   * In Search Console: Add property -> URL prefix -> https://fuchesi.com ->
+   * expand "HTML tag" -> copy only the content="..." value, not the whole tag.
+   */
+  googleSiteVerification: '',
 } as const;
 
 export type Site = typeof site;
