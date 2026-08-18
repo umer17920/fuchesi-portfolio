@@ -175,6 +175,59 @@ export function serviceSchema(service: Service) {
   };
 }
 
+/**
+ * A case study, as an Article about the services it used.
+ *
+ * schema.org has no CaseStudy type, so Article is the honest fit: it is a
+ * written piece with an author, a date and a subject. The subject matters more
+ * than the type here. `about` points at the Service nodes the project used, so
+ * an assistant asked for evidence that this company has delivered ERP work can
+ * follow the edge from the service to a real project rather than inferring it
+ * from prose.
+ *
+ * No aggregateRating and no review: those assert third-party judgements that
+ * nobody has given. See content/case-studies.seed.ts.
+ */
+export function caseStudySchema(study: {
+  slug: string;
+  title: string;
+  summary: string;
+  client: string | null;
+  services: string[];
+  publishedAt: string;
+  updatedAt?: string | null;
+  image?: string | null;
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    '@id': `${site.url}/work/${study.slug}#casestudy`,
+    headline: study.title,
+    description: study.summary,
+    url: `${site.url}/work/${study.slug}`,
+    datePublished: study.publishedAt,
+    dateModified: study.updatedAt ?? study.publishedAt,
+    author: { '@id': ORG_ID },
+    publisher: { '@id': ORG_ID },
+    isPartOf: { '@id': WEBSITE_ID },
+    inLanguage: 'en-GB',
+    articleSection: 'Case study',
+    // The services this project actually used, by the same @id their own pages
+    // publish, so the two nodes resolve to one thing.
+    ...(study.services.length > 0
+      ? {
+          about: study.services.map((slug) => ({
+            '@type': 'Service',
+            '@id': `${site.url}/services/${slug}#service`,
+          })),
+        }
+      : {}),
+    ...(study.client ? { mentions: { '@type': 'Organization', name: study.client } } : {}),
+    ...(study.image ? { image: study.image } : {}),
+    mainEntityOfPage: { '@type': 'WebPage', '@id': `${site.url}/work/${study.slug}` },
+  };
+}
+
 export function breadcrumbSchema(trail: { name: string; path: string }[]) {
   return {
     '@context': 'https://schema.org',

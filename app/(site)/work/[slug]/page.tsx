@@ -13,7 +13,7 @@ import { PublishedMeta } from '@/components/shared/PublishedMeta';
 import { getCaseStudies, getCaseStudy } from '@/lib/case-studies';
 import { isLinkable } from '@/lib/links';
 import { getProject } from '@/lib/projects';
-import { breadcrumbSchema } from '@/lib/schema';
+import { breadcrumbSchema, caseStudySchema } from '@/lib/schema';
 import { services } from '@/lib/services';
 import { getShot } from '@/lib/shots';
 import { site } from '@/lib/site';
@@ -216,6 +216,18 @@ export default async function CaseStudyPage({ params }: Params) {
 
       <ContactCta />
 
+      <JsonLd
+        data={caseStudySchema({
+          slug: study.slug,
+          title: study.title,
+          summary: study.summary,
+          client: study.client,
+          services: study.services ?? [],
+          publishedAt: study.publishedAt,
+          updatedAt: study.updatedAt,
+          image: cover?.url ?? null,
+        })}
+      />
       <JsonLd
         data={breadcrumbSchema([
           { name: 'Home', path: '/' },
