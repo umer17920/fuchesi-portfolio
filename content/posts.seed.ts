@@ -64,7 +64,7 @@ export const seedPosts: Post[] = [
     slug: 'which-tasks-are-worth-automating',
     title: 'How to tell if a task is worth automating',
     excerpt:
-      'A four-question test for deciding whether a repetitive task should be automated, left alone, or fixed at the process level first. Most tasks fail on the second question.',
+      'A four-question test for deciding whether a repetitive task should be automated, left alone, or fixed at the process level first. Most fail on the second.',
     publishedAt: '2026-08-04',
     updatedAt: null,
     authorName: 'Fuchesi',
@@ -183,7 +183,7 @@ export const seedPosts: Post[] = [
     slug: 'what-ai-calling-agents-can-and-cannot-do',
     title: 'What AI calling agents can and cannot do',
     excerpt:
-      'AI calling agents handle real phone conversations in the caller’s language. They are good at some jobs, bad at others, and the difference matters more than the demo suggests.',
+      'AI calling agents handle real phone conversations in the caller’s language. They are good at some jobs and bad at others, and the difference matters.',
     publishedAt: '2026-06-30',
     updatedAt: null,
     authorName: 'Fuchesi',

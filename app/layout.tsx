@@ -65,7 +65,11 @@ export const metadata: Metadata = {
     default: `${site.name} | Custom software, ERP systems, and AI automation`,
     template: `%s | ${site.name}`,
   },
-  description: site.description,
+  // site.description is the canonical entity sentence and runs to 237
+  // characters, which Google truncates around 160. The meta tag gets its own
+  // shorter line; JSON-LD and the About page still use the full one.
+  description:
+    'Fuchesi builds custom software, ERP systems, AI calling agents, lead generation pipelines, and AI workflow automations for US businesses.',
   // The home page is the canonical root. Inner pages set their own; without a
   // default here, any URL reached with a tracking query string can be indexed
   // as a separate page competing with the original.

@@ -12,7 +12,8 @@ import { site } from '@/lib/site';
 
 export const metadata: Metadata = {
   title: 'About',
-  description: site.description,
+  description:
+    'Fuchesi is a software development and AI automation company. What we build, how projects run, and what you own at the end.',
   alternates: { canonical: `${site.url}/about` },
 };
 

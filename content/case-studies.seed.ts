@@ -41,7 +41,7 @@ const p = (text: string) => ({
 export const seedCaseStudies: CaseStudy[] = [
   {
     slug: 'hfx-calculator',
-    title: 'A subscription toolkit for forex position and risk sizing',
+    title: 'Forex position sizing as a subscription product',
     client: 'HFX',
     year: null,
     summary:
@@ -74,7 +74,7 @@ export const seedCaseStudies: CaseStudy[] = [
 
   {
     slug: 'elite-auto-hire',
-    title: 'Claim intake for a credit hire and replacement vehicle specialist',
+    title: 'Claim intake for a credit hire specialist',
     client: 'Elite Auto Hire',
     year: null,
     summary:
@@ -107,7 +107,7 @@ export const seedCaseStudies: CaseStudy[] = [
 
   {
     slug: 'supernet-pharmacy',
-    title: 'Moving repeat prescriptions off the telephone for a community pharmacy',
+    title: 'Repeat prescriptions for a community pharmacy',
     client: 'Supernet Pharmacy',
     year: null,
     summary:

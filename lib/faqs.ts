@@ -50,3 +50,34 @@ export const homeFaqs: Faq[] = [
       'Fuchesi builds AI calling agents that speak English, Arabic, Urdu, Hindi, Spanish, French, German, and other languages, and an agent can switch language mid-call when the caller does.',
   },
 ];
+
+/**
+ * Contact-page FAQs.
+ *
+ * Separate from homeFaqs on purpose. Repeating the home questions here would
+ * put two pages of this site in competition for the same query, and the answers
+ * a visitor wants with a half-filled form in front of them are different ones:
+ * what happens next, what it costs to find out, and when somebody replies.
+ */
+export const contactFaqs: Faq[] = [
+  {
+    question: 'What happens after I send this?',
+    answer:
+      'You get a reply within one working day, from someone who will actually be doing the work. If it looks like a fit, the next step is a short call about the problem rather than a sales pitch, and after that a written scope with a fixed price range.',
+  },
+  {
+    question: 'Does the first conversation cost anything?',
+    answer:
+      'No. Discovery is free, including the written scope and price range at the end of it. That conversation can and sometimes does end with us telling you to buy an off-the-shelf product instead, which costs you nothing.',
+  },
+  {
+    question: 'What do you need from me to give a price?',
+    answer:
+      'A description of what is not working, in your own words. You do not need a requirements document or a technical specification. If you have screenshots of the spreadsheet you are running the process in, that is usually worth more than either.',
+  },
+  {
+    question: 'What hours do you work, and how quickly can you start?',
+    answer:
+      'Project hours overlap US business time, and messages are answered within one working day. Start dates depend on what is already booked, and discovery can usually begin the same week you get in touch.',
+  },
+];

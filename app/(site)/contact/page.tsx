@@ -4,6 +4,8 @@ import { Container } from '@/components/primitives/Container';
 import { Eyebrow } from '@/components/primitives/Eyebrow';
 import { Section } from '@/components/primitives/Section';
 import { JsonLd } from '@/components/seo/JsonLd';
+import { FaqSection } from '@/components/shared/FaqSection';
+import { contactFaqs } from '@/lib/faqs';
 import { breadcrumbSchema } from '@/lib/schema';
 import { site } from '@/lib/site';
 
@@ -98,6 +100,8 @@ export default function ContactPage() {
           </div>
         </Container>
       </Section>
+
+      <FaqSection faqs={contactFaqs} heading="Before you send it" />
 
       <JsonLd
         data={breadcrumbSchema([
