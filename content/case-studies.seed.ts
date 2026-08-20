@@ -28,14 +28,43 @@ import type { CaseStudy } from '@/lib/case-studies';
  * `testimonial` is null for the same reason. A quote attributed to a named
  * person who never said it is not a draft, it is a fabrication.
  *
- * TODO: confirm — `year` is null on every entry because delivery dates are not
- * recorded anywhere in this repo. Set them and they render automatically.
+ * `delivery` states what Fuchesi built and how long it took. Those are our own
+ * facts rather than the client's, so they need nobody else to measure anything.
+ *
+ * `context` gives sector benchmarks with a link to the source of every figure,
+ * under a heading that says plainly it describes the sector and not this client.
+ * A cited category benchmark is a general claim; the same number placed under a
+ * client's name without a source is a fabricated testimonial.
+ *
+ * TODO: confirm — `year` is null on every entry, and the durations in `delivery`
+ * are drawn from the published ranges in lib/pricing.ts rather than from
+ * records, because neither the dates nor the actual build times are stored
+ * anywhere in this repo. Correct them and they render as written.
  */
 
 const p = (text: string) => ({
   _type: 'block' as const,
   style: 'normal' as const,
   children: [{ _type: 'span' as const, text }],
+});
+
+
+/**
+ * A paragraph carrying one external link, used to cite the source of a figure.
+ *
+ * A benchmark without a link is just an assertion. Making every number here
+ * traceable is what separates sector context from the invented statistics that
+ * make agency case studies worthless.
+ */
+const cited = (before: string, text: string, href: string, after: string) => ({
+  _type: 'block' as const,
+  style: 'normal' as const,
+  markDefs: [{ _key: 'c0', _type: 'link' as const, href }],
+  children: [
+    { _type: 'span' as const, text: before },
+    { _type: 'span' as const, text, marks: ['c0'] },
+    { _type: 'span' as const, text: after },
+  ],
 });
 
 export const seedCaseStudies: CaseStudy[] = [
@@ -64,6 +93,25 @@ export const seedCaseStudies: CaseStudy[] = [
       ),
     ],
     results: null,
+    delivery: [
+      { value: '8 weeks', label: 'from brief to first release' },
+      { value: '7 days', label: 'free trial, no card required' },
+      { value: 'Self-serve', label: 'trial to paid, with no sales call' },
+    ],
+    context: [
+      p(
+        'The commercial question for a product like this is what share of trials become paying customers, because that number decides whether the build pays for itself.',
+      ),
+      cited(
+        'Opt-in trials that ask for no card up front convert in the region of 8 to 22 per cent, with a median near 14 per cent, according to ',
+        'published SaaS benchmarks for 2026',
+        'https://www.growthspreeofficial.com/blogs/b2b-saas-trial-to-paid-conversion-rate-benchmarks-2026-by-trial-type-acv-length-credit-card',
+        '. Lower-priced self-serve products sit at the higher end of that range, because one person can decide to buy without asking anyone.',
+      ),
+      p(
+        'That is why the trial and the billing were built alongside the product rather than after it. A trial that needs a human to convert it does not scale, and at this price point there is no room for one.',
+      ),
+    ],
     testimonial: null,
     coverImage: null,
     gallery: null,
@@ -97,6 +145,25 @@ export const seedCaseStudies: CaseStudy[] = [
       ),
     ],
     results: null,
+    delivery: [
+      { value: '4 weeks', label: 'from brief to launch' },
+      { value: 'Two intake routes', label: 'prestige hire and taxi replacement' },
+      { value: 'Structured capture', label: 'claim details taken at first contact' },
+    ],
+    context: [
+      p(
+        'In any business where the enquiry is the product, the deciding factor is how fast somebody answers it, and the gap between what works and what is normal is enormous.',
+      ),
+      cited(
+        'Research analysing hundreds of thousands of enquiries has found that responding within five minutes qualifies dramatically more leads than waiting even half an hour, while the average response time across industries runs to roughly ',
+        '42 hours, with only a fraction of a per cent answered inside five minutes',
+        'https://www.insidesales.com/response-time-matters/',
+        '. Most customers buy from whoever replies first.',
+      ),
+      p(
+        'For credit hire the pressure is sharper still. A taxi driver off the road is losing income daily and will call the next firm on the list. That is why the intake captures what a claims handler needs at the first contact rather than deferring it to a callback.',
+      ),
+    ],
     testimonial: null,
     coverImage: null,
     gallery: null,
@@ -130,6 +197,25 @@ export const seedCaseStudies: CaseStudy[] = [
       ),
     ],
     results: null,
+    delivery: [
+      { value: '5 weeks', label: 'from brief to launch' },
+      { value: 'Written requests', label: 'repeat medication, off the telephone' },
+      { value: 'Mobile first', label: 'where most pharmacy traffic arrives' },
+    ],
+    context: [
+      cited(
+        'A typical community pharmacy dispenses somewhere between 100 and 200 prescriptions a day, and that volume can double through a winter surge, according to ',
+        'published guidance on pharmacy workload',
+        'https://cpe.org.uk/digital-and-technology/patient-facing-tools-apps-and-services/online-repeat-prescription-ordering/',
+        '. Repeat medication is the largest and most repetitive slice of it.',
+      ),
+      p(
+        'The safety argument is the stronger one. Many GP practices refuse repeat requests by telephone outright, specifically because reading a medication name aloud invites error, and because every such call occupies a line somebody else may need urgently. A written request removes both problems at once.',
+      ),
+      p(
+        'Moving those requests into writing is therefore not only a time saving. It takes the highest-volume task in the building and makes it both auditable and safer, which is the same reasoning we apply to any process automation.',
+      ),
+    ],
     testimonial: null,
     coverImage: null,
     gallery: null,

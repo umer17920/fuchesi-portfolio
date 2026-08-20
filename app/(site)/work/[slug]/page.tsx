@@ -135,6 +135,65 @@ export default async function CaseStudyPage({ params }: Params) {
         </Container>
       </Section>
 
+      {/*
+        What we delivered. Renders whether or not the client has supplied
+        measured outcomes, because scope and duration are our own facts and do
+        not depend on anyone else doing the measuring.
+      */}
+      {study.delivery && study.delivery.length > 0 && (
+        <Section tone="raised">
+          <Container>
+            <Reveal>
+              <h2 className="text-eyebrow uppercase text-muted">What we delivered</h2>
+              <dl className="mt-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
+                {study.delivery.map((item) => (
+                  /*
+                    flex-col-reverse, not an sr-only <dt>. A description list
+                    needs the term before the description in source order, but
+                    the value should read first visually. Reversing with CSS
+                    gets both, where a hidden <dt> duplicating a visible label
+                    just makes a screen reader say it twice.
+                  */
+                  <div
+                    key={item.label}
+                    className="flex flex-col-reverse border-t border-hairline pt-6"
+                  >
+                    <dt className="mt-3 text-body-s text-muted">{item.label}</dt>
+                    <dd className="font-display text-display-s">{item.value}</dd>
+                  </div>
+                ))}
+              </dl>
+            </Reveal>
+          </Container>
+        </Section>
+      )}
+
+      {/*
+        Sector context. Explicitly headed so a reader cannot mistake an industry
+        benchmark for this client's result, which is the failure mode that makes
+        agency case studies untrustworthy.
+      */}
+      {study.context && study.context.length > 0 && (
+        <Section tone="paper">
+          <Container>
+            <Reveal>
+              <div className="grid gap-4 md:grid-cols-[1fr_1.3fr] md:gap-12">
+                <h2 className="font-display text-display-s text-balance">
+                  What this kind of build typically achieves
+                </h2>
+                <div>
+                  <Prose value={study.context} />
+                  <p className="mt-8 max-w-[62ch] text-body-s text-muted">
+                    Figures above describe the sector, not this client. We publish a client&rsquo;s
+                    own numbers only when they have measured and shared them.
+                  </p>
+                </div>
+              </div>
+            </Reveal>
+          </Container>
+        </Section>
+      )}
+
       {study.results && study.results.length > 0 && (
         <Section tone="emphasis">
           <Container>

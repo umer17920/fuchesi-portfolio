@@ -32,7 +32,23 @@ export type CaseStudy = {
   services: string[];
   challenge: PortableTextBlock[];
   solution: PortableTextBlock[];
+  /**
+   * Measured client outcomes. Null unless the client supplied real figures.
+   */
   results: CaseStudyResult[] | null;
+  /**
+   * What Fuchesi delivered: duration, scope, what shipped. These are our own
+   * facts about our own work, so they can be stated without the client having
+   * to measure anything.
+   */
+  delivery: CaseStudyResult[] | null;
+  /**
+   * Sector context, with sources. Describes what this class of build typically
+   * achieves across the industry, never what this client achieved. The
+   * distinction is the whole point: a cited category benchmark is a general
+   * claim, an uncited figure under a client's name is a fabricated testimonial.
+   */
+  context: PortableTextBlock[] | null;
   testimonial: { quote: string; attribution: string } | null;
   coverImage: { url: string; alt: string } | null;
   gallery: { url: string; alt: string }[] | null;
@@ -51,6 +67,8 @@ const FIELDS = `
   challenge,
   solution,
   results[]{ value, label },
+  delivery[]{ value, label },
+  context,
   testimonial{ quote, attribution },
   "coverImage": coverImage{ "url": asset->url, alt },
   "gallery": gallery[]{ "url": asset->url, alt },
